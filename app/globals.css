@@ -1,0 +1,80 @@
+/* Protocolo de Importación Unificado de Tailwind V4 */
+@import "tailwindcss";
+
+/* --- INICIO PROTOCOLO DE ANIMACIÓN --- */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+/* --- FIN PROTOCOLO DE ANIMACIÓN --- */
+
+/* Forja del Tema Personalizado de Tailwind (Protocolo de Variables CSS) */
+@theme {
+  --color-bodega-dark: #1a1a1a;
+  --color-bodega-gold: #c4a265;
+  --color-bodega-ivory: #f5f5dc;
+  --color-bodega-maroon: #800000;
+  --color-bodega-stone: #a9a9a9;
+
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-geist-mono);
+
+  /* Registro de la animación 'breathe' para que la clase 'animate-breathe' funcione */
+  --animate-breathe: breathe 6s ease-in-out infinite;
+}
+
+/* Aplicación de Estilos Base al Cuerpo del Documento */
+body {
+  @apply bg-bodega-dark text-bodega-stone font-sans;
+}
+
+/* --- INICIO PROTOCOLO PANAL --- */
+@layer utilities {
+  .panal-grid > *:nth-child(odd) {
+    margin-top: 6rem; /* 96px */
+  }
+}
+/* --- FIN PROTOCOLO PANAL --- */
+
+@keyframes subtle-cosmos-animation {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(10px, 20px) scale(1.01);
+  }
+  50% {
+    transform: translate(5px, -15px) scale(1);
+  }
+  75% {
+    transform: translate(-10px, 10px) scale(1.01);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@layer utilities {
+  .animate-subtle-cosmos {
+    animation: subtle-cosmos-animation 120s ease-in-out infinite;
+  }
+}
+
+/* en app/globals.css */
+
+@keyframes star-shimmer {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.8; }
+}
+
+.stardust-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at center, white 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: star-shimmer 20s linear infinite;
+}
