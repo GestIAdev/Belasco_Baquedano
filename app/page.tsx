@@ -3,7 +3,8 @@
 import { useSantuario } from "./components/SantuarioContext";
 import HeroSection from "./components/sections/HeroSection";
 import AromasSantuario from "./components/santuarios/AromasSantuario";
-import TiendaSantuario from "./components/santuarios/TiendaSantuario"; // <-- IMPORTACIÓN AÑADIDA
+import TiendaSantuario from "./components/santuarios/TiendaSantuario";
+import RestauranteSantuario from "./components/santuarios/RestauranteSantuario"; // <-- IMPORTACIÓN AÑADIDA
 import { AnimatePresence, motion, Transition } from "framer-motion"; // <-- 1. IMPORTAMOS EL TIPO 'TRANSITION'
 
 export default function Home() {
@@ -47,6 +48,17 @@ export default function Home() {
           >
             <TiendaSantuario />
           </motion.div>
+        ) : activeSantuario === 'restaurante' ? ( // <-- CONDICIÓN AÑADIDA
+          <motion.div 
+            key="santuario-restaurante"
+            initial="initial" 
+            animate="in" 
+            exit="out" 
+            variants={pageVariants} 
+            transition={pageTransition}
+          >
+            <RestauranteSantuario />
+          </motion.div>  
         ) : (
           <motion.div
             key="main-content"

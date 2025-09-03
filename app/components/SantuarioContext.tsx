@@ -1,16 +1,20 @@
-
-'use client';
+// en app/components/SantuarioContext.tsx
+"use client";
 import { createContext, useState, useContext, ReactNode } from 'react';
 
+// 1. EL LENGUAJE BLINDADO: Definimos los únicos valores posibles
+export type SantuarioActivo = 'aromas' | 'tienda' | 'restaurante' | 'club' | null;
+
 type SantuarioContextType = {
-  activeSantuario: string | null;
-  setActiveSantuario: (santuario: string | null) => void;
+  activeSantuario: SantuarioActivo;
+  setActiveSantuario: (santuario: SantuarioActivo) => void;
 };
 
 const SantuarioContext = createContext<SantuarioContextType | undefined>(undefined);
 
 export const SantuarioProvider = ({ children }: { children: ReactNode }) => {
-  const [activeSantuario, setActiveSantuario] = useState<string | null>(null);
+  // 2. El estado ahora usa nuestro tipo específico
+  const [activeSantuario, setActiveSantuario] = useState<SantuarioActivo>(null);
 
   return (
     <SantuarioContext.Provider value={{ activeSantuario, setActiveSantuario }}>
@@ -26,3 +30,4 @@ export const useSantuario = () => {
   }
   return context;
 };
+

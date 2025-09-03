@@ -45,3 +45,14 @@ export interface Vino {
   imagen_url: string; // Corregido de imageUrl a imagen_url
   aromas: (number | string)[];
 }
+
+export interface Plato {
+      id: number | string;
+      nombre: string;
+      descripcion: string;
+      precio: number;
+      categoria: 'entrante' | 'principal' | 'postre';
+      imageUrl: string;
+      alergenos: string[]; // <-- AHORA ES OBLIGATORIO
+      vino_maridaje_id: number | string | null;
+    }

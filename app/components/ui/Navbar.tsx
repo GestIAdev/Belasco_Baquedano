@@ -20,7 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
           <button onClick={() => onOpenPanel({ id: 'history', title: 'Nuestra Historia' })} className="font-sans text-bodega-stone hover:text-bodega-ivory">Nuestra Historia</button>
           {/* CORRECCIÓN: Enoturismo ahora abre un ModalPanel (Pergamino) */}
           <button onClick={() => onOpenPanel({ id: 'enoturismo', title: 'Enoturismo' })} className="font-sans text-bodega-stone hover:text-bodega-ivory">Enoturismo</button>
-          <button onClick={() => setActiveSantuario('restaurant')} className="font-sans text-bodega-stone hover:text-bodega-ivory">Restaurante</button>
+          <button onClick={() => setActiveSantuario('restaurante')} className="font-sans text-bodega-stone hover:text-bodega-ivory">Restaurante</button>
           <button onClick={() => setActiveSantuario('aromas')} className="font-sans text-bodega-stone hover:text-bodega-ivory">Sala de Aromas</button>
           <button onClick={() => setActiveSantuario('tienda')} className="font-sans text-bodega-stone hover:text-bodega-ivory">Tienda</button>
         </div>
