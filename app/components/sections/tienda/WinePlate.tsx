@@ -12,7 +12,7 @@ interface WinePlateProps {
 const WinePlate: React.FC<WinePlateProps> = ({ vino }) => {
   return (
     <motion.div 
-      className="relative group cursor-pointer w-full max-w-xs mx-auto"
+      className="relative group cursor-pointer max-w-xs mx-auto"
       whileHover={{ y: -10, transition: { type: 'spring', stiffness: 300 } }}
     >
       {/* La Esfera de Cristal */}

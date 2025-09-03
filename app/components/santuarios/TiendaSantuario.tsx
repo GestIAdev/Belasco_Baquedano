@@ -51,7 +51,7 @@ const TiendaSantuario: React.FC = () => {
       {/* Contenedor Flex para el contenido */}
       <div className="relative z-10 flex flex-row">
         {/* El Pergamino ahora con un ancho fijo de 1/4 */}
-        <div className="w-1/4 flex-shrink-0">
+        <div className="w-1/4 flex-shrink-0 self-stretch">
           <PergaminoSidebar>
             <h2 className="font-serif text-3xl font-bold text-bodega-ivory mb-6">
               La Bodega
@@ -82,7 +82,7 @@ const TiendaSantuario: React.FC = () => {
         {/* El Lienzo de la Galería ocupa el espacio restante */}
         <div className="flex-grow p-8 h-[calc(100vh-4rem)] overflow-y-auto">
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8"
             variants={containerVariants}
             initial="hidden"
             animate="visible"

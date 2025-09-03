@@ -17,8 +17,7 @@ const PergaminoSidebar: React.FC<PergaminoSidebarProps> = ({ children, className
       animate={{ x: '0%' }} 
       transition={{ duration: 0.7, ease: 'easeOut' }}
       // --- LOS HECHIZOS DE ARTE ESTÁN AQUÍ ---
-      className={`relative top-16 h-[calc(100vh-4rem)] w-1/4 bg-bodega-dark/60 backdrop-blur-md p-8 text-bodega-stone overflow-y-auto 
-                 border-r-2 border-bodega-gold/50 flex flex-col
+      className={`h-full w-full bg-bodega-dark/60 backdrop-blur-md p-8 text-bodega-stone overflow-y-auto border-r-2 border-bodega-gold/50 flex flex-col
                  ${className || ''}`}
     >
       {/* Contenido principal que crece para ocupar el espacio */}

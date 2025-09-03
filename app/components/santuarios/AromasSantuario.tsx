@@ -52,34 +52,36 @@ const AromasSantuario: React.FC = () => {
       <div className="stardust-bg" />
       
       {/* Barra Lateral del Pergamino (AHORA UN COMPONENTE REUTILIZABLE) */}
-      <PergaminoSidebar className="bg-bodega-dark/40">
-        <h2 className="font-serif text-4xl font-bold text-bodega-ivory mb-4">
-          El Pergamino del Saber
-        </h2>
-        <p className="text-lg text-bodega-stone/90 mb-6 leading-relaxed">
-          Los aromas del vino son su alma, un lenguaje que nos habla de su origen, su variedad y su crianza. Cada botella es un testamento del terroir, un mapa líquido forjado por el sol, la altitud y la tierra.
-        </p>
-        
-        <hr className="border-bodega-gold/30 my-6" />
-
-        <div className="space-y-4 text-lg text-bodega-stone/90 leading-relaxed">
-          <p>Se agrupan en tres grandes familias:</p>
-          <ul className="list-disc list-inside space-y-3 mt-4">
-            <li>
-              <strong className="text-bodega-gold">Aromas Primarios:</strong> Provenientes de la propia uva, son los aromas frutales, florales y vegetales.
-            </li>
-            <li>
-              <strong className="text-bodega-stone">Aromas Secundarios:</strong> Nacidos durante la fermentación, como la levadura, el pan o la mantequilla.
-            </li>
-            <li>
-              <strong className="text-bodega-stone">Aromas Terciarios (Bouquet):</strong> Desarrollados durante la crianza en barrica y botella, como el cuero, el tabaco, la vainilla y las especias.
-            </li>
-          </ul>
-          <p className="mt-6 italic">
-            Explora la constelación para descubrir los matices que componen nuestros vinos.
+      <div className="absolute top-16 left-0 h-[calc(100vh-4rem)] w-1/4">
+        <PergaminoSidebar className="bg-bodega-dark/40">
+          <h2 className="font-serif text-4xl font-bold text-bodega-ivory mb-4">
+            El Pergamino del Saber
+          </h2>
+          <p className="text-lg text-bodega-stone/90 mb-6 leading-relaxed">
+            Los aromas del vino son su alma, un lenguaje que nos habla de su origen, su variedad y su crianza. Cada botella es un testamento del terroir, un mapa líquido forjado por el sol, la altitud y la tierra.
           </p>
-        </div>
-      </PergaminoSidebar>
+          
+          <hr className="border-bodega-gold/30 my-6" />
+
+          <div className="space-y-4 text-lg text-bodega-stone/90 leading-relaxed">
+            <p>Se agrupan en tres grandes familias:</p>
+            <ul className="list-disc list-inside space-y-3 mt-4">
+              <li>
+                <strong className="text-bodega-gold">Aromas Primarios:</strong> Provenientes de la propia uva, son los aromas frutales, florales y vegetales.
+              </li>
+              <li>
+                <strong className="text-bodega-stone">Aromas Secundarios:</strong> Nacidos durante la fermentación, como la levadura, el pan o la mantequilla.
+              </li>
+              <li>
+                <strong className="text-bodega-stone">Aromas Terciarios (Bouquet):</strong> Desarrollados durante la crianza en barrica y botella, como el cuero, el tabaco, la vainilla y las especias.
+              </li>
+            </ul>
+            <p className="mt-6 italic">
+              Explora la constelación para descubrir los matices que componen nuestros vinos.
+            </p>
+          </div>
+        </PergaminoSidebar>
+      </div>
 
       {/* El Lienzo de la Constelación (Espacio Central) */}
       <div className="absolute top-0 right-0 h-full w-3/4">
