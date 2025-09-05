@@ -48,18 +48,18 @@ export interface Vino {
 }
 
 export interface Plato {
-      id: number | string;
-      nombre: string;
-      descripcion: string;
-      precio: number;
-      categoria: 'entrante' | 'principal' | 'postre';
-      imageUrl: string; // Imagen Protagonista
-      imagenMiniatura: string; // Para el hover
-      historiaPlato?: string; // Opcional
-      alergenos: string[];
-      reseñas?: { autor: string; comentario: string; rating: number }[]; // Opcional
-      vino_maridaje_id: number | string | null;
-    }
+  id: number | string;
+  nombre: string;
+  descripcion: string;
+  precio: number;
+  categoria: 'entrante' | 'principal' | 'postre' | 'menu';
+  imageUrl: string; // Imagen Protagonista
+  imagenMiniatura: string; // Para el hover
+  historiaPlato?: string; // Opcional
+  alergenos: string[];
+  reseñas?: { autor: string; comentario: string; rating: number }[]; // Opcional
+  vino_maridaje_id: number | string | null;
+}
 
 // Nuevas interfaces para la navegación del menú
 export interface MenuSubcategory {

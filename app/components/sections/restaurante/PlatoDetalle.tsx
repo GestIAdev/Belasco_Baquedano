@@ -17,7 +17,6 @@ const PlatoDetalle: React.FC<PlatoDetalleProps> = ({ plato, vinos }) => {
     ? vinos.find(vino => vino.id === plato.vino_maridaje_id)
     : null;
 
-  // Calculate average rating for display
   const averageRating = plato.reseñas && plato.reseñas.length > 0
     ? (plato.reseñas.reduce((sum, review) => sum + review.rating, 0) / plato.reseñas.length).toFixed(1)
     : 'N/A';
@@ -32,8 +31,8 @@ const PlatoDetalle: React.FC<PlatoDetalleProps> = ({ plato, vinos }) => {
     >
       {/* --- Imagen Protagonista --- */}
       <div 
-        className="relative w-4/5 shadow-lg shadow-black/50 rounded-lg overflow-hidden" 
-        style={{ aspectRatio: '3 / 2' }} // Added inline aspect-ratio
+        className="relative w-full shrink-0 max-h-1/2 shadow-lg shadow-black/50 rounded-lg overflow-hidden" 
+        style={{ aspectRatio: '3 / 2' }}
       >
         <Image
           src={plato.imageUrl}
@@ -47,23 +46,16 @@ const PlatoDetalle: React.FC<PlatoDetalleProps> = ({ plato, vinos }) => {
 
       {/* --- El Códice del Sabor --- */}
       <div 
-        className="w-full flex-grow mt-6 p-6 rounded-lg shadow-lg"
+        className="w-full flex-grow p-6 rounded-lg shadow-lg min-h-0 overflow-y-auto [&::-webkit-scrollbar]:hidden"
         style={{ 
-          backgroundColor: "rgba(25, 25, 25, 0.95)", // Solid background with opacity
-          // Ensure same width as image - this needs to be handled by parent container or fixed width
-          // For now, it will take full width of its parent (PlatoDetalle)
+          backgroundColor: "rgba(25, 25, 25, 0.95)",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          maskImage: "linear-gradient(to bottom, black 95%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 95%, transparent 100%)"
         }}
       >
-        <div 
-          className="overflow-y-auto pr-4"
-          style={{ 
-            // Removed maxHeight: "calc(100vh - 400px)",
-            scrollbarWidth: "none", // Firefox
-            msOverflowStyle: "none", // IE and Edge
-            maskImage: "linear-gradient(to bottom, black 85%, transparent 100%)", // Fade effect
-            WebkitMaskImage: "linear-gradient(to bottom, black 85%, transparent 100%)" // Webkit
-          }}
-        >
+        <div className="pr-4">
           {/* --- La Narrativa (Encabezado) --- */}
           <h3 className="text-3xl font-bold text-bodega-ivory mb-2">{plato.nombre}</h3>
           <p className="text-bodega-stone text-lg mb-6">{plato.descripcion}</p>
@@ -124,13 +116,11 @@ const PlatoDetalle: React.FC<PlatoDetalleProps> = ({ plato, vinos }) => {
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex items-center gap-1 text-amber-400">
                   {Array.from({ length: Math.floor(parseFloat(averageRating)) }).map((_, i) => <Star key={i} size={20} fill="currentColor" />)}
-                  {/* Handle half stars if needed */}
                   {Array.from({ length: 5 - Math.ceil(parseFloat(averageRating)) }).map((_, i) => <Star key={i} size={20} className="opacity-30" />)}
                 </div>
                 <p className="text-bodega-ivory text-sm">{averageRating}/5 ({plato.reseñas.length} reseñas)</p>
               </div>
               
-              {/* Placeholder for "Ver Reseñas" button */}
               <button className="bg-bodega-gold text-black px-4 py-2 rounded-md font-semibold hover:bg-bodega-gold/80 transition-colors">
                 [+] Ver Reseñas
               </button>

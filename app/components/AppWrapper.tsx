@@ -34,7 +34,7 @@ const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="grid grid-rows-[auto_1fr] h-screen"> {/* Replaced fragment with div and added grid styles */}
       <Navbar onOpenPanel={handleNavClick} />
-      <main className="pt-16">{children}</main> {/* Added pt-16 */}
+      <main className="pt-16 overflow-hidden">{children}</main>
       {activeHologram && (
         <ModalPanel
           isOpen={!!activeHologram}

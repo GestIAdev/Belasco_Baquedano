@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import { Plato, MenuChapter, MenuSubcategory } from '@/app/types';
 import { menuData } from '@/app/data/menuData';
 import { vinosData } from '@/app/data/vinosData';
-import DishCard from '@/app/components/ui/DishCard';
-import PlatoDetalle from '@/app/components/ui/PlatoDetalle';
+import DishCard from '@/app/components/sections/restaurante/DishCard';
+import PlatoDetalle from '@/app/components/sections/restaurante/PlatoDetalle';
+import MenuCard from '@/app/components/sections/restaurante/MenuCard';
+import MenuImageViewer from '@/app/components/sections/restaurante/MenuImageViewer';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -16,11 +18,7 @@ const RestauranteSantuario = () => {
   const [capituloActivo, setCapituloActivo] = useState<CapituloId>('a-la-carta');
   const [subcategoriaActiva, setSubcategoriaActiva] = useState<string | null>(null);
   const [platoSeleccionado, setPlatoSeleccionado] = useState<Plato | null>(null);
-  const [previewImage, setPreviewImage] = useState<{ src: string, x: number, y: number } | null>(null);
-
-  const handleShowPreview = (src: string | null, x: number, y: number) => {
-    setPreviewImage(src ? { src, x, y } : null);
-  };
+  const [menuSeleccionado, setMenuSeleccionado] = useState<Plato | null>(null);
 
   // Find the active chapter data
   const activeChapter = menuData.find(chapter => chapter.id === capituloActivo);
@@ -29,16 +27,13 @@ const RestauranteSantuario = () => {
   let contentToDisplay: Plato[] | MenuSubcategory[] | MenuChapter[] = [];
   if (activeChapter) {
     if (subcategoriaActiva) {
-      // Display dishes of the active subcategory
       const activeSubcategory = activeChapter.subcategorias?.find(sub => sub.id === subcategoriaActiva);
       if (activeSubcategory) {
         contentToDisplay = activeSubcategory.platos;
       }
     } else if (activeChapter.subcategorias) {
-      // Display subcategories of the active chapter
       contentToDisplay = activeChapter.subcategorias;
     } else if (activeChapter.platos) {
-      // Display dishes directly if no subcategories (e.g., Menús, Menú Especial)
       contentToDisplay = activeChapter.platos;
     }
   }
@@ -47,9 +42,8 @@ const RestauranteSantuario = () => {
     <section className="flex w-full h-screen bg-black text-white">
       {/* El Pergamino (El Libreto) - 40% */}
       <div 
-        className="w-2/5 h-full bg-neutral-950/50 p-8 border-r border-neutral-800 overflow-x-hidden overflow-y-hidden relative" // Added relative
+        className="w-2/5 h-full bg-neutral-950/50 p-8 border-r border-neutral-800 overflow-x-hidden overflow-y-hidden relative"
       >
-        {/* Overlay for the background image opacity */}
         <div 
           className="absolute inset-0" 
           style={{ 
@@ -57,26 +51,26 @@ const RestauranteSantuario = () => {
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
             backgroundSize: "contain",
-            opacity: 0.09, // This is the requested opacity for the blason
-            zIndex: 0, // Changed from -1 to 0
+            opacity: 0.09,
+            zIndex: 0,
           }}
         ></div>
-        <h1 className="text-3xl font-bold text-amber-300 mb-8 relative z-10">La Carta Viva</h1> {/* Changed z-0 to z-10 */}
+        <h1 className="text-3xl font-bold text-amber-300 mb-8 relative z-10">La Carta Viva</h1>
         
-        {/* Navegación Superior (Selector de Capítulos) */}
-        <div className="flex justify-around space-x-4 mb-8 bg-black/50 p-2 rounded-lg relative z-10"> {/* Changed z-0 to z-10 */}
+        <div className="flex justify-around border-b border-neutral-700 mb-8 relative z-10">
           {menuData.map(chapter => (
-            <button 
+            <button
               key={chapter.id}
               onClick={() => { 
                 setCapituloActivo(chapter.id); 
-                setSubcategoriaActiva(null); // Reset subcategory on chapter change
-                setPlatoSeleccionado(null); // Reset dish selection
+                setSubcategoriaActiva(null);
+                setPlatoSeleccionado(null);
+                setMenuSeleccionado(null);
               }}
-              className={`px-4 py-2 rounded-md transition-colors duration-200 
+              className={`px-4 py-3 -mb-px text-lg transition-colors duration-300 ease-in-out focus:outline-none 
                 ${capituloActivo === chapter.id 
-                  ? 'bg-bodega-gold text-black font-semibold'
-                  : 'text-bodega-gold border border-bodega-gold/50 hover:bg-bodega-gold/20'
+                  ? 'border-b-2 border-bodega-gold text-bodega-gold font-semibold'
+                  : 'border-b-2 border-transparent text-neutral-400 hover:text-bodega-gold'
                 }`}
             >
               {chapter.nombre}
@@ -84,20 +78,17 @@ const RestauranteSantuario = () => {
           ))}
         </div>
 
-        {/* Aquí se renderiza la lista de platos/subcategorías (DishCard 2.0) */}
         <div 
-          className="overflow-y-auto h-[calc(100%-150px)] [&::-webkit-scrollbar]:hidden relative z-10" // Changed z-0 to z-10
+          className="overflow-y-auto h-[calc(100%-150px)] [&::-webkit-scrollbar]:hidden relative z-10"
           style={{ 
-            scrollbarWidth: "none", // Firefox
-            msOverflowStyle: "none", // IE and Edge
-            maskImage: "linear-gradient(to bottom, black 85%, transparent 100%)", // Fade effect
-            WebkitMaskImage: "linear-gradient(to bottom, black 85%, transparent 100%)" // Webkit
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            maskImage: "linear-gradient(to bottom, black 85%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 85%, transparent 100%)"
           }}
         >
-          {/* Render Subcategories or Dishes based on active state */}
           {contentToDisplay.length > 0 ? (
             <div>
-              {/* Back button for subcategories */}
               {subcategoriaActiva && (
                 <button 
                   onClick={() => setSubcategoriaActiva(null)} 
@@ -119,20 +110,29 @@ const RestauranteSantuario = () => {
                     </div>
                   );
                 } else {
-                  return (
-                    <DishCard 
-                      key={item.id} 
-                      plato={item} 
-                      onSelect={setPlatoSeleccionado} 
-                      onShowPreview={handleShowPreview} 
-                    />
-                  );
+                  if (capituloActivo === 'menus') {
+                    return (
+                      <MenuCard
+                        key={item.id}
+                        menu={item}
+                        onSelect={setMenuSeleccionado}
+                      />
+                    );
+                  } else {
+                    return (
+                      <DishCard 
+                        key={item.id} 
+                        plato={item} 
+                        onSelect={setPlatoSeleccionado} 
+                      />
+                    );
+                  }
                 }
               })}
             </div>
           ) : (
             <div className="text-center text-neutral-400 mt-10">
-              <p>No hay contenido disponible para este capítulo/subcategoría.</p>
+              <p>No hay contenido disponible para este capítulo.</p>
             </div>
           )}
         </div>
@@ -140,11 +140,10 @@ const RestauranteSantuario = () => {
 
       {/* El Lienzo (El Escenario) - 60% */}
       <div 
-        className="w-3/5 h-full p-12 relative flex flex-col overflow-hidden" 
+        className="w-3/5 h-full relative flex flex-col overflow-hidden" 
       >
-        {/* --- Lienzo de Dos Mundos --- */}
+        {/* Background Images */}
         <div className="absolute inset-0">
-          {/* Imagen de la Terraza - Parte Superior Izquierda */}
           <div 
             className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out hover:scale-105"
             style={{ 
@@ -152,7 +151,6 @@ const RestauranteSantuario = () => {
               clipPath: "polygon(0 0, 100% 0, 0% 100%, 0 100%)"
             }}
           ></div>
-          {/* Imagen del Interior - Parte Inferior Derecha */}
           <div 
             className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out hover:scale-105"
             style={{ 
@@ -160,7 +158,6 @@ const RestauranteSantuario = () => {
               clipPath: "polygon(100% 0, 100% 100%, 0 100%, 100% 0)"
             }}
           ></div>
-          {/* Degradado de Fusión en la Diagonal */}
           <div 
             className="absolute inset-0"
             style={{
@@ -168,49 +165,21 @@ const RestauranteSantuario = () => {
             }}
           ></div>
         </div>
-
-        {/* Velo oscuro para la atmósfera */}
         <div className="absolute inset-0 bg-black/60"></div>
         
-        <div className="relative z-10 p-12 flex flex-col h-full"> 
+        <div className="relative z-10 flex flex-col h-full"> 
           {platoSeleccionado ? (
             <PlatoDetalle plato={platoSeleccionado} vinos={vinosData} />
+          ) : menuSeleccionado ? (
+            <MenuImageViewer imageUrl={menuSeleccionado.imageUrl} altText={menuSeleccionado.nombre} />
           ) : (
-            <div className="flex flex-col items-center justify-center h-full text-center text-neutral-400"> 
+            <div className="flex flex-col items-center justify-center text-center text-neutral-400 p-12"> 
               <h2 className="text-3xl font-bold mb-4">Explore nuestra propuesta gastronómica</h2>
               <p className="text-lg">Seleccione un plato del libreto para ver sus detalles.</p>
             </div>
           )}
         </div>
       </div>
-
-      {/* --- Global Preview Image (Micro-previsualización) --- */}
-      <AnimatePresence>
-        {previewImage && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
-            style={{ 
-              position: 'fixed', 
-              left: previewImage.x + 20, // Offset from cursor
-              top: previewImage.y + 20, // Offset from cursor
-              pointerEvents: 'none', // Allow clicks to pass through
-              zIndex: 9999, // Ensure it's on top
-            }}
-            className="rounded-md shadow-lg shadow-black/50 border-2 border-bodega-gold/50 overflow-hidden"
-          >
-            <Image 
-              src={previewImage.src}
-              alt="Vista previa"
-              width={150} // Fixed size for preview
-              height={150} // Fixed size for preview
-              className="object-cover"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
