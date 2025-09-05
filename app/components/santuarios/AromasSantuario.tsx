@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useSantuario } from '../SantuarioContext';
 import AromaBubble from '../sections/aromas/AromaBubble';
-import { Aroma, aromasData } from '../sections/aromas/types';
+import { Aroma, aromasData } from '@/app/types';
 import PergaminoSidebar from '../ui/PergaminoSidebar'; // <-- IMPORTACIÓN
 
 // El componente que orquesta la constelación

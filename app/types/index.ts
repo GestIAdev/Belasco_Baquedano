@@ -37,12 +37,13 @@ export interface Vino {
   id: number | string;
   nombre: string;
   añada: number;
-  descripcion: string; // Descripción poética general
+  varietal: string; // <-- ESPECIFICACIÓN AÑADIDA PARA COMPATIBILIDAD
+  descripcion: string;
   precio: number;
   stock: number;
-  notas_cata: string; // Nota de cata específica
+  notas_cata: string;
   maridaje: string;
-  imagen_url: string; // Corregido de imageUrl a imagen_url
+  imagen_url: string;
   aromas: (number | string)[];
 }
 
@@ -52,7 +53,24 @@ export interface Plato {
       descripcion: string;
       precio: number;
       categoria: 'entrante' | 'principal' | 'postre';
-      imageUrl: string;
-      alergenos: string[]; // <-- AHORA ES OBLIGATORIO
+      imageUrl: string; // Imagen Protagonista
+      imagenMiniatura: string; // Para el hover
+      historiaPlato?: string; // Opcional
+      alergenos: string[];
+      reseñas?: { autor: string; comentario: string; rating: number }[]; // Opcional
       vino_maridaje_id: number | string | null;
     }
+
+// Nuevas interfaces para la navegación del menú
+export interface MenuSubcategory {
+  id: string;
+  nombre: string;
+  platos: Plato[];
+}
+
+export interface MenuChapter {
+  id: string;
+  nombre: string;
+  subcategorias?: MenuSubcategory[];
+  platos?: Plato[];
+}

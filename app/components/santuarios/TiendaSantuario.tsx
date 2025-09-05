@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import PergaminoSidebar from '../ui/PergaminoSidebar';
-import { vinosData } from '@/app/data/vinoData';
+import { vinosData } from '@/app/data/vinosData';
 import WinePlate from '../sections/tienda/WinePlate';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { Vino } from '../sections/aromas/types';

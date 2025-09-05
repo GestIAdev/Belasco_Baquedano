@@ -1,9 +1,8 @@
 // en app/components/sections/tienda/WineDetail.tsx
 "use client";
 
-import { Vino } from "@/app/components/sections/aromas/types";
+import { Vino, aromasData } from "@/app/types";
 import Image from "next/image";
-import { aromasData } from "@/app/components/sections/aromas/types";
 import AromaBubble from "../aromas/AromaBubble";
 
 interface WineDetailProps {

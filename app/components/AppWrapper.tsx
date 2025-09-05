@@ -32,9 +32,9 @@ const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <>
+    <div className="grid grid-rows-[auto_1fr] h-screen"> {/* Replaced fragment with div and added grid styles */}
       <Navbar onOpenPanel={handleNavClick} />
-      <main>{children}</main>
+      <main className="pt-16">{children}</main> {/* Added pt-16 */}
       {activeHologram && (
         <ModalPanel
           isOpen={!!activeHologram}
@@ -48,7 +48,7 @@ const AppWrapper = ({ children }: { children: React.ReactNode }) => {
           {activeHologram.id === 'reservations' && <ReservationsContent />}
         </ModalPanel>
       )}
-    </>
+    </div> // Closing div
   );
 };
 
