@@ -39,10 +39,10 @@ const RestauranteSantuario = () => {
   }
 
   return (
-    <section className="flex w-full h-screen bg-black text-white">
+    <section className="flex w-full h-screen bg-black text-white pt-20 overflow-hidden">
       {/* El Pergamino (El Libreto) - 40% */}
       <div 
-        className="w-2/5 h-full bg-neutral-950/50 p-8 border-r border-neutral-800 overflow-x-hidden overflow-y-hidden relative"
+        className="w-2/5 h-full bg-neutral-950/50 p-8 border-r border-neutral-800 overflow-x-hidden relative flex flex-col"
       >
         <div 
           className="absolute inset-0" 
@@ -57,7 +57,7 @@ const RestauranteSantuario = () => {
         ></div>
         <h1 className="text-3xl font-bold text-amber-300 mb-8 relative z-10">La Carta Viva</h1>
         
-        <div className="flex justify-around border-b border-neutral-700 mb-8 relative z-10">
+        <div className="flex justify-around border-b border-neutral-700 mb-8 relative z-10 shrink-0">
           {menuData.map(chapter => (
             <button
               key={chapter.id}
@@ -79,7 +79,7 @@ const RestauranteSantuario = () => {
         </div>
 
         <div 
-          className="overflow-y-auto h-[calc(100%-150px)] [&::-webkit-scrollbar]:hidden relative z-10"
+          className="overflow-y-auto flex-1 min-h-0 [&::-webkit-scrollbar]:hidden relative z-10"
           style={{ 
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -140,7 +140,7 @@ const RestauranteSantuario = () => {
 
       {/* El Lienzo (El Escenario) - 60% */}
       <div 
-        className="w-3/5 h-full relative flex flex-col overflow-hidden" 
+        className="w-3/5 h-full relative flex flex-col" 
       >
         {/* Background Images */}
         <div className="absolute inset-0">

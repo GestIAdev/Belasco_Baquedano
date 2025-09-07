@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Navbar from './ui/Navbar';
 import ModalPanel from './ui/ModalPanel';
 import HistoryContent from './sections/HistoryContent';
@@ -12,6 +13,9 @@ const RestaurantContent = () => <div>Contenido del Restaurante...</div>;
 const ReservationsContent = () => <div>Contenido de Reservas...</div>;
 
 const AppWrapper = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
+
   const [activeHologram, setActiveHologram] = useState<{ id: string; title: string } | null>(null);
   const { setActiveSantuario } = useSantuario();
 
@@ -32,9 +36,19 @@ const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="grid grid-rows-[auto_1fr] h-screen"> {/* Replaced fragment with div and added grid styles */}
-      <Navbar onOpenPanel={handleNavClick} />
-      <main className="pt-16 overflow-hidden">{children}</main>
+    <div className="bg-black text-white">
+      {/* FASE 1: Construir el Bastión del Centinela */}
+      {/* Temporarily render Navbar always for debugging */} 
+      <header className="relative z-50">
+        <Navbar onOpenPanel={handleNavClick} />
+      </header>
+
+      {/* FASE 2: El Contenido Fluye Debajo */}
+      {/* El pt-20 en cada Santuario sigue siendo la clave para dejar el espacio físico. */}
+      <main>
+        {children}
+      </main>
+
       {activeHologram && (
         <ModalPanel
           isOpen={!!activeHologram}
@@ -48,7 +62,7 @@ const AppWrapper = ({ children }: { children: React.ReactNode }) => {
           {activeHologram.id === 'reservations' && <ReservationsContent />}
         </ModalPanel>
       )}
-    </div> // Closing div
+    </div>
   );
 };
 

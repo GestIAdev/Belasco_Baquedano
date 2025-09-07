@@ -34,17 +34,18 @@ export const aromasData: Aroma[] = [
 ];
 
 export interface Vino {
-  id: number | string;
-  nombre: string;
-  añada: number;
-  varietal: string; // <-- ESPECIFICACIÓN AÑADIDA PARA COMPATIBILIDAD
-  descripcion: string;
-  precio: number;
-  stock: number;
-  notas_cata: string;
-  maridaje: string;
-  imagen_url: string;
-  aromas: (number | string)[];
+  id: number | string;
+  nombre: string;
+  anada: number;
+  tipo: TipoVino;
+  varietal: string;
+  descripcion: string;
+  precio: number;
+  stock: number;
+  notas_cata: string;
+  maridaje: MaridajeIdeal[];
+  imagen_url: string;
+  aromas: (number | string)[];
 }
 
 export interface Plato {
@@ -62,6 +63,25 @@ export interface Plato {
 }
 
 // Nuevas interfaces para la navegación del menú
+export type SantuarioId = 'aromas' | 'tienda' | 'restaurante' | 'club';
+export type HologramId = 'history' | 'enoturismo' | 'contacto' | 'reservations';
+export type TipoVino = "Tinto" | "Blanco" | "Rosado" | "Espumoso";
+export type MaridajeIdeal = "Carnes Rojas" | "Pescados y Mariscos" | "Pastas" | "Quesos" | "Postres" | "Comida Asiática";
+
+interface SantuarioLink {
+  id: SantuarioId;
+  title: string;
+  type: 'santuario';
+}
+
+interface HologramLink {
+  id: HologramId;
+  title: string;
+  type: 'hologram';
+}
+
+export type NavLink = SantuarioLink | HologramLink;
+
 export interface MenuSubcategory {
   id: string;
   nombre: string;

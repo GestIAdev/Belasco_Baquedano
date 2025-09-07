@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSantuario } from '../SantuarioContext';
+import { NavLink } from '@/app/types';
 
 interface NavbarProps {
   onOpenPanel: (hologram: { id: string; title: string }) => void;
@@ -12,7 +13,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
   const { activeSantuario, setActiveSantuario } = useSantuario();
 
-  const navLinks = [
+  const navLinks: NavLink[] = [
     { id: 'history', title: 'Nuestra Historia', type: 'hologram' },
     { id: 'enoturismo', title: 'Enoturismo', type: 'hologram' },
     { id: 'restaurante', title: 'Restaurante', type: 'santuario' },
@@ -49,7 +50,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
                 }
               }}
               className={`font-sans text-lg transition-colors duration-200
-                ${activeSantuario === link.id
+                ${link.type === 'santuario' && activeSantuario === link.id
                   ? 'text-bodega-gold font-semibold' // Estado activo
                   : 'text-bodega-stone hover:text-bodega-ivory'
                 }

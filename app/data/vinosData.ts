@@ -1,30 +1,14 @@
 import { Vino } from '@/app/types';
 
 export const vinosData: Vino[] = [
-  {
-    id: 'arga-reserva-2020',
-    nombre: 'Arga Reserva Malbec',
-    añada: 2020,
-    varietal: 'Malbec',
-    descripcion: 'Un Malbec de alta gama, con notas de frutos rojos maduros, vainilla y tabaco. Crianza de 18 meses en barricas de roble francés.',
-    precio: 45.00,
-    stock: 120,
-    notas_cata: 'Color rojo rubí intenso. Aromas complejos a ciruela, mora, especias y un toque ahumado. En boca es elegante, con taninos suaves y un final persistente.',
-    maridaje: 'Carnes rojas asadas, quesos curados, guisos de caza.',
-    imagen_url: '/images/vinos/arga-reserva.webp',
-    aromas: [1, 8, 9], // IDs de aromas relevantes
-  },
-  {
-    id: 'belasco-malbec-2021',
-    nombre: 'Belasco Malbec Joven',
-    añada: 2021,
-    varietal: 'Malbec',
-    descripcion: 'Un Malbec fresco y frutal, ideal para el consumo diario. Sin paso por madera, resalta la expresión varietal.',
-    precio: 20.00,
-    stock: 250,
-    notas_cata: 'Color violeta brillante. Aromas a frambuesa y violetas. En boca es ligero, con taninos amables y un final frutal.',
-    maridaje: 'Pastas, empanadas, carnes blancas.',
-    imagen_url: '/images/vinos/belasco-joven.webp',
-    aromas: [2, 5], // IDs de aromas relevantes
-  },
+  // --- Lote Original ---
+  { id: 1, nombre: "Belasco de Baquedano", tipo: "Tinto", varietal: "Malbec", anada: 2021, precio: 75.50, stock: 120, imagen_url: "/images/vinos/vino_malbec_1.png", descripcion: "Un Malbec emblemático que captura la esencia del terruño mendocino. Intenso, complejo y de final persistente.", notas_cata: "Frutos rojos maduros, Violetas, Notas de vainilla y chocolate", maridaje: ["Carnes Rojas", "Quesos"], aromas: [1, 5] },
+  { id: 2, nombre: "Rosa de Belasco", tipo: "Rosado", varietal: "Malbec Rosé", anada: 2023, precio: 45.00, stock: 250, imagen_url: "/images/vinos/rosamalbec.png", descripcion: "Fresco y vibrante, este Rosé es una expresión elegante del Malbec. Ideal para atardeceres y momentos memorables.", notas_cata: "Cereza fresca, Frutilla, Pétalos de rosa", maridaje: ["Pescados y Mariscos", "Comida Asiática"], aromas: [2, 7] },
+  { id: 3, nombre: "Llama de la Pasión", tipo: "Blanco", varietal: "Torrontés", anada: 2022, precio: 52.00, stock: 180, imagen_url: "/images/vinos/llama-malbec.png", descripcion: "Un Torrontés explosivo en aromas, con la acidez justa para un final limpio y refrescante.", notas_cata: "Jazmín, Ralladura de cítricos, Durazno blanco", maridaje: ["Pescados y Mariscos", "Pastas"], aromas: [8, 9] },
+  { id: 4, nombre: "AR GUENTOTA", tipo: "Tinto", varietal: "Malbec", anada: 2020, precio: 120.00, stock: 80, imagen_url: "/images/vinos/AR-guentota-malbec.png", descripcion: "La joya de la corona. Un Malbec de parcela única, criado durante 24 meses en barricas de roble francés.", notas_cata: "Ciruelas negras, Regaliz, Tabaco y cuero", maridaje: ["Carnes Rojas", "Quesos"], aromas: [1, 12] },
+  // --- Nuevos Reclutas ---
+  { id: 5, nombre: "Nube Blanca", tipo: "Blanco", varietal: "Blend de Blancas", anada: 2023, precio: 65.00, stock: 150, imagen_url: "/images/vinos/vino_blanco_blend.png", descripcion: "Un blend etéreo de Chardonnay, Sauvignon Blanc y Torrontés. Fresco, complejo y con un final mineral.", notas_cata: "Manzana verde, Pomelo rosado, Tiza húmeda", maridaje: ["Pescados y Mariscos", "Quesos"], aromas: [9, 10] },
+  { id: 6, nombre: "Juramento", tipo: "Tinto", varietal: "Cabernet Sauvignon", anada: 2019, precio: 95.00, stock: 90, imagen_url: "/images/vinos/vino_cabernet.png", descripcion: "Un pacto de sangre con el terruño. Cabernet Sauvignon robusto, con taninos firmes y un potencial de guarda excepcional.", notas_cata: "Pimiento rojo asado, Eucalipto, Grafito", maridaje: ["Carnes Rojas", "Pastas"], aromas: [13, 14] },
+  { id: 7, nombre: "Corona del Rey", tipo: "Espumoso", varietal: "Chardonnay", anada: 2021, precio: 88.00, stock: 110, imagen_url: "/images/vinos/vino_espumoso.png", descripcion: "Elaborado bajo el método tradicional, este espumoso es la celebración definitiva. Burbujas finas y persistentes.", notas_cata: "Pan tostado, Miel, Manzanas amarillas", maridaje: ["Pescados y Mariscos", "Postres"], aromas: [3, 11] },
+  { id: 8, nombre: "Lágrima Dulce", tipo: "Tinto", varietal: "Malbec Cosecha Tardía", anada: 2022, precio: 70.00, stock: 200, imagen_url: "/images/vinos/vino_tardio.png", descripcion: "Un capricho de la naturaleza. Uvas Malbec cosechadas tardíamente para un vino dulce natural, denso y seductor.", notas_cata: "Higos secos, Mermelada de ciruela, Cacao", maridaje: ["Postres", "Quesos"], aromas: [4, 15] }
 ];
