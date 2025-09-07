@@ -33,6 +33,9 @@ export const aromasData: Aroma[] = [
   { id: 7, nombre: 'Menta', imageUrl: '/images/aromas/menta.jpg', descripcion: 'Una nota herbal y refrescante que levanta el perfil del vino.', size: 'w-28 h-28', position: 'top-[50%] left-[92%]' },
 ];
 
+export type TipoVino = "Tinto" | "Blanco" | "Rosado" | "Espumoso";
+export type MaridajeIdeal = "Carnes Rojas" | "Pescados y Mariscos" | "Pastas" | "Quesos" | "Postres" | "Comida Asiática";
+
 export interface Vino {
   id: number | string;
   nombre: string;
@@ -40,7 +43,11 @@ export interface Vino {
   tipo: TipoVino;
   varietal: string;
   descripcion: string;
-  precio: number;
+  // LA BÓVEDA BIMONETARIA
+  precio: {
+    usd: number;
+    ars: number;
+  };
   stock: number;
   notas_cata: string;
   maridaje: MaridajeIdeal[];
@@ -65,8 +72,6 @@ export interface Plato {
 // Nuevas interfaces para la navegación del menú
 export type SantuarioId = 'aromas' | 'tienda' | 'restaurante' | 'club';
 export type HologramId = 'history' | 'enoturismo' | 'contacto' | 'reservations';
-export type TipoVino = "Tinto" | "Blanco" | "Rosado" | "Espumoso";
-export type MaridajeIdeal = "Carnes Rojas" | "Pescados y Mariscos" | "Pastas" | "Quesos" | "Postres" | "Comida Asiática";
 
 interface SantuarioLink {
   id: SantuarioId;
