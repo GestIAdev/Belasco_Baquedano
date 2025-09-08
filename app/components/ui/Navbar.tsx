@@ -19,6 +19,8 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
     { id: 'restaurante', title: 'Restaurante', type: 'santuario' },
     { id: 'aromas', title: 'Sala de Aromas', type: 'santuario' },
     { id: 'tienda', title: 'Tienda', type: 'santuario' },
+    { id: 'club-vino', title: 'Club del Vino', type: 'santuario' },
+    { id: 'eventos', title: 'Eventos', type: 'santuario' }, // <-- EL NUEVO COMANDO
   ];
 
   return (
@@ -49,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
                   onOpenPanel({ id: link.id, title: link.title });
                 }
               }}
-              className={`font-sans text-lg transition-colors duration-200
+              className={`font-sans text-lg transition-colors duration-300 ease-in-out focus:outline-none
                 ${link.type === 'santuario' && activeSantuario === link.id
                   ? 'text-bodega-gold font-semibold' // Estado activo
                   : 'text-bodega-stone hover:text-bodega-ivory'

@@ -4,8 +4,10 @@ import { useSantuario } from "./components/SantuarioContext";
 import HeroSection from "./components/sections/HeroSection";
 import AromasSantuario from "./components/santuarios/AromasSantuario";
 import TiendaSantuario from "./components/santuarios/TiendaSantuario";
-import RestauranteSantuario from "./components/santuarios/RestauranteSantuario"; // <-- IMPORTACIÓN AÑADIDA
-import { AnimatePresence, motion, Transition } from "framer-motion"; // <-- 1. IMPORTAMOS EL TIPO 'TRANSITION'
+import RestauranteSantuario from "./components/santuarios/RestauranteSantuario";
+import ClubVinoSantuario from "./components/santuarios/ClubVinoSantuario"; // <-- IMPORTACIÓN AÑADIDA
+import EventosSantuario from "./components/santuarios/EventosSantuario"; // <-- IMPORTAMOS EL NUEVO BASTIÓN
+import { AnimatePresence, motion, Transition } from "framer-motion";
 
 export default function Home() {
   const { activeSantuario } = useSantuario();
@@ -16,7 +18,6 @@ export default function Home() {
     out: { opacity: 0 },
   };
 
-  // 2. APLICAMOS EL SELLO DE AUTORIDAD (Tipado Explícito)
   const pageTransition: Transition = {
     type: "tween",
     ease: "anticipate",
@@ -37,7 +38,7 @@ export default function Home() {
           >
             <AromasSantuario />
           </motion.div>
-        ) : activeSantuario === 'tienda' ? ( // <-- CONDICIÓN AÑADIDA
+        ) : activeSantuario === 'tienda' ? (
           <motion.div
             key="santuario-tienda"
             initial="initial"
@@ -48,7 +49,7 @@ export default function Home() {
           >
             <TiendaSantuario />
           </motion.div>
-        ) : activeSantuario === 'restaurante' ? ( // <-- CONDICIÓN AÑADIDA
+        ) : activeSantuario === 'restaurante' ? (
           <motion.div 
             key="santuario-restaurante"
             initial="initial" 
@@ -59,6 +60,29 @@ export default function Home() {
           >
             <RestauranteSantuario />
           </motion.div>  
+        ) : activeSantuario === 'club-vino' ? ( // <-- CONDICIÓN AÑADIDA
+          <motion.div
+            key="santuario-club-vino"
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <ClubVinoSantuario />
+          </motion.div>
+        // --- LA NUEVA LÍNEA DE FRENTE ---
+        ) : activeSantuario === 'eventos' ? (
+          <motion.div
+            key="santuario-eventos"
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <EventosSantuario />
+          </motion.div>
         ) : (
           <motion.div
             key="main-content"

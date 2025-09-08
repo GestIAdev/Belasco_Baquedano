@@ -3,7 +3,7 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
 
 // 1. EL LENGUAJE BLINDADO: Definimos los únicos valores posibles
-export type SantuarioActivo = 'aromas' | 'tienda' | 'restaurante' | 'club' | null;
+export type SantuarioActivo = 'aromas' | 'tienda' | 'restaurante' | 'club' | 'eventos' | null;
 
 type SantuarioContextType = {
   activeSantuario: SantuarioActivo;
@@ -30,4 +30,3 @@ export const useSantuario = () => {
   }
   return context;
 };
-

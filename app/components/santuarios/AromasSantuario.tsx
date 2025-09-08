@@ -1,100 +1,86 @@
-// ENTRANDO EN EL SANTUARIO...
 "use client";
-import React from 'react';
+
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
-import { useSantuario } from '../SantuarioContext';
-import AromaBubble from '../sections/aromas/AromaBubble';
-import { Aroma, aromasData } from '@/app/types';
-import PergaminoMaestro from '../ui/PergaminoMaestro';
-
-
-// El componente que orquesta la constelación
-const Constellation = () => (
-  <motion.div 
-    layoutId="constellation"
-    className="relative w-full h-full"
-    initial="hidden"
-    animate="visible"
-    variants={{
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: 0.08,
-        },
-      },
-    }}
-  >
-    {aromasData.map((aroma: Aroma) => (
-      <AromaBubble key={aroma.id} aroma={aroma} onClick={() => console.log(aroma.nombre)} />
-    ))}
-  </motion.div>
-);
+import { Aroma, aromasData } from '@/app/data/aromasData';
+import PergaminoMaestro from '@/app/components/ui/PergaminoMaestro';
+import AromaBubble from '@/app/components/sections/aromas/AromaBubble';
+import AromaDetailModal from '@/app/components/sections/aromas/AromaDetailModal';
 
 const AromasSantuario: React.FC = () => {
-  const { setActiveSantuario } = useSantuario();
+  const [selectedAroma, setSelectedAroma] = useState<Aroma | null>(null);
+
+  const handleAromaClick = (aroma: Aroma) => {
+    setSelectedAroma(aroma);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedAroma(null);
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] bg-black overflow-hidden"
-    >
-      {/* EL COSMOS VIVIENTE: Fondo con animación sutil */}
-      <motion.div
-        className="absolute inset-[-10%] bg-cover bg-center opacity-40"
-        style={{ backgroundImage: "url('/images/santuario_background.webp')" }}
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
-      />
-      
-      {/* --- HECHIZO DEL POLVO DE ESTRELLAS --- */}
-      <div className="stardust-bg" />
-      
-      {/* Barra Lateral del Pergamino (AHORA UN COMPONENTE REUTILIZABLE) */}
-      <PergaminoMaestro>
-        <h2 className="font-serif text-4xl font-bold text-bodega-ivory mb-4">
-          El Pergamino del Saber
-        </h2>
-        <p className="text-lg text-bodega-stone/90 mb-6 leading-relaxed">
-          Los aromas del vino son su alma, un lenguaje que nos habla de su origen, su variedad y su crianza. Cada botella es un testamento del terroir, un mapa líquido forjado por el sol, la altitud y la tierra.
-        </p>
-        
-        <hr className="border-bodega-gold/30 my-6" />
+    <>
+      <section className="flex w-full h-screen bg-black text-white pt-20 overflow-hidden">
+        {/* === El Pergamino (40%) - AHORA CON ALMA === */}
+        <div className="w-2/5 h-full flex-shrink-0">
+          <PergaminoMaestro>
+              <div className="flex-1 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden pr-4">
+                <h1 className="text-4xl font-bold text-bodega-gold mb-6">El Pergamino del Saber</h1>
 
-        <div className="space-y-4 text-lg text-bodega-stone/90 leading-relaxed">
-          <p>Se agrupan en tres grandes familias:</p>
-          <ul className="list-disc list-inside space-y-3 mt-4">
-            <li>
-              <strong className="text-bodega-gold">Aromas Primarios:</strong> Provenientes de la propia uva, son los aromas frutales, florales y vegetales.
-            </li>
-            <li>
-              <strong className="text-bodega-stone">Aromas Secundarios:</strong> Nacidos durante la fermentación, como la levadura, el pan o la mantequilla.
-            </li>
-            <li>
-              <strong className="text-bodega-stone">Aromas Terciarios (Bouquet):</strong> Desarrollados durante la crianza en barrica y botella, como el cuero, el tabaco, la vainilla y las especias.
-            </li>
-          </ul>
-          <p className="mt-6 italic">
-            Explora la constelación para descubrir los matices que componen nuestros vinos.
-          </p>
+                {/* --- ACTO I: EL SANTUARIO SENSORIAL --- */}
+                <div className="space-y-4 text-bodega-stone/80 leading-relaxed">
+                  <h2 className="text-2xl font-bold text-bodega-gold">Un Viaje al Corazón del Vino</h2>
+                  <p>
+                    Nuestra Sala de Aromas no es un museo; es un **oráculo**. Un santuario diseñado para decodificar el lenguaje secreto que cada botella de Belasco susurra. Aquí, hemos aislado y encapsulado las 46 esencias que componen el alma de nuestros vinos, desde la violeta que florece en la altura de nuestros Malbecs hasta el cuero noble que solo el tiempo puede forjar.
+                  </p>
+                  <p>
+                    Es un campo de entrenamiento para los sentidos, un mapa líquido que te permite viajar a través de nuestro terroir sin moverte de la sala. Al aprender a identificar estos "hilos de Ariadna", no solo degustas el vino: lo **comprendes**. Te conviertes en un iniciado, un guardián de su historia. 
+                  </p>
+
+                  <div className="border-t border-bodega-gold/10 my-6 pt-6">
+                    <h2 className="text-2xl font-bold text-bodega-gold">El Lenguaje del Vino</h2>
+                     <ul className="list-disc list-inside space-y-3 pt-4">
+                      <li><strong className="text-bodega-gold/90">Aromas Primarios:</strong> Provenientes de la propia uva; el ADN de la fruta, la flor y la tierra.</li>
+                      <li><strong className="text-bodega-gold/90">Aromas Secundarios:</strong> Nacidos del caos controlado de la fermentación; el alma de la levadura.</li>
+                      <li><strong className="text-bodega-gold/90">Aromas Terciarios (Bouquet):</strong> Forjados en el silencio de la barrica y la botella; la sabiduría del tiempo.</li>
+                    </ul>
+                  </div>
+                   <p className="pt-4 italic">
+                    Explora la biblioteca en el Lienzo. Toca un aroma. Descubre su historia y en qué vinos se esconde su alma.
+                  </p>
+                </div>
+              </div>
+          </PergaminoMaestro>
         </div>
-      </PergaminoMaestro>
 
-      {/* El Lienzo de la Constelación (Espacio Central) */}
-      <div className="absolute top-0 right-0 h-full w-3/4">
-        <Constellation />
-      </div>
+        {/* === El Lienzo (60%) === */}
+        <div className="w-3/5 h-full relative flex items-center justify-center p-8">
+            <div 
+              className="absolute inset-0 bg-cover bg-center opacity-30" 
+              style={{ backgroundImage: "url('/images/santuario_background.webp')" }}
+            />
+            <motion.div 
+              className="grid grid-cols-5 gap-6 w-full"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: { transition: { staggerChildren: 0.05 } },
+              }}
+            >
+              {aromasData.slice(0, 15).map((aroma: Aroma) => (
+                <AromaBubble key={aroma.id} aroma={aroma} onClick={() => handleAromaClick(aroma)} />
+              ))}
+            </motion.div>
+        </div>
+      </section>
 
-      {/* Botón de Cierre */}
-      <button 
-        onClick={() => setActiveSantuario(null)} 
-        className="absolute top-6 right-6 z-20 text-bodega-ivory/50 hover:text-bodega-ivory transition-colors"
-      >
-        <X size={32} />
-      </button>
-    </motion.div>
+      <AromaDetailModal 
+        aroma={selectedAroma} 
+        isOpen={!!selectedAroma} 
+        onClose={handleCloseModal} 
+      />
+    </>
   );
 };
+
 export default AromasSantuario;
