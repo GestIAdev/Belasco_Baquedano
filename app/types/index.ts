@@ -94,6 +94,7 @@ export interface MediaItem {
   title: string;
   category: MediaCategory;
   description?: string;
+  thumbnailUrl?: string; // Added for video thumbnails
 }
 
 export interface Evento {

@@ -12,7 +12,7 @@ export const eventosData: Evento[] = [
     gallery: [
         mediaData.find(m => m.id === 'vid002')!,
         mediaData.find(m => m.id === 'img003')!
-    ]
+    ].filter(Boolean)
   },
   {
     id: 'tango-terraza-2024',
@@ -22,7 +22,8 @@ export const eventosData: Evento[] = [
     description: 'El bandoneón, el Malbec y la Cordillera de los Andes como testigos. Una crónica de nuestra noche más memorable, donde la pasión del tango se encontró con el alma de nuestros vinos de guarda.',
     coverImage: '/images/eventos/tango_cover.jpg',
     gallery: [
-        mediaData.find(m => m.id === 'vid001')!
-    ]
+        mediaData.find(m => m.id === 'vid001')!,
+        mediaData.find(m => m.id === 'eno002')!
+    ].filter(Boolean)
   },
 ];

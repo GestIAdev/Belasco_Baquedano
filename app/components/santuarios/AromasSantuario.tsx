@@ -22,7 +22,7 @@ const AromasSantuario: React.FC = () => {
     <>
       <section className="flex w-full h-screen bg-black text-white pt-20 overflow-hidden">
         {/* === El Pergamino (40%) - AHORA CON ALMA === */}
-        <div className="w-2/5 h-full flex-shrink-0">
+        <div className="w-2/6 h-full flex-shrink-0">
           <PergaminoMaestro>
               <div className="flex-1 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden pr-4">
                 <h1 className="text-4xl font-bold text-bodega-gold mb-6">El Pergamino del Saber</h1>
@@ -54,7 +54,7 @@ const AromasSantuario: React.FC = () => {
         </div>
 
         {/* === El Lienzo (60%) === */}
-        <div className="w-3/5 h-full relative flex items-center justify-center p-8">
+        <div className="w-4/6 h-full relative flex items-center justify-center p-8">
             <div 
               className="absolute inset-0 bg-cover bg-center opacity-30" 
               style={{ backgroundImage: "url('/images/santuario_background.webp')" }}

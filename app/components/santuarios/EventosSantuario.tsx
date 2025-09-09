@@ -5,26 +5,39 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Evento, MediaItem, MediaCategory } from '@/app/types';
 import { eventosData } from '@/app/data/eventosData';
 import { mediaData } from '@/app/data/mediaData';
+import { enoturismoData } from '@/app/data/enoturismoData'; // Added import
 import PergaminoMaestro from '@/app/components/ui/PergaminoMaestro';
-import MediaGrid from '@/app/components/sections/eventos/MediaGrid';
+import ChronicleCard from '../sections/eventos/ChronicleCard';
+import AssetViewer from '../sections/eventos/AssetViewer';
+
+// Definimos un tipo para el activo que puede ser mostrado en el Lienzo
+type ActiveAsset = Evento | MediaItem;
 
 type TabId = 'eventos' | 'videos' | 'galeria' | 'enoturismo';
-type EventoStatus = 'proximo' | 'pasado';
-
-const EventCard: React.FC<{ evento: Evento, onClick: () => void }> = ({ evento, onClick }) => (
-    <div onClick={onClick} className="p-4 border-b border-bodega-gold/10 hover:bg-black/20 cursor-pointer transition-colors">
-        <h3 className="font-bold text-bodega-stone">{evento.title}</h3>
-        <p className="text-sm text-bodega-gold/70">{evento.date}</p>
-    </div>
-);
 
 const EventosSantuario: React.FC = () => {
     const [activeTab, setActiveTab] = useState<TabId>('eventos');
-    const [activeSubTab, setActiveSubTab] = useState<EventoStatus>('proximo');
-    const [selectedEvento, setSelectedEvento] = useState<Evento | null>(null);
+    const [activeSubTab, setActiveSubTab] = useState<'proximo' | 'pasado'>('proximo');
+    // Definimos un tipo para el activo que puede ser mostrado en el Lienzo
 
-    const proximosEventos = useMemo(() => eventosData.filter(e => e.status === 'proximo'), []);
-    const eventosPasados = useMemo(() => eventosData.filter(e => e.status === 'pasado'), []);
+    const [activeProjection, setActiveProjection] = useState<ActiveProjection | null>(null);
+
+    // Memoizamos los items a mostrar en el Pérgamino según la pestaña activa
+    const itemsForTab = useMemo(() => {
+        switch (activeTab) {
+            case 'eventos':
+                return eventosData.filter(e => e.status === activeSubTab);
+            case 'videos':
+                return mediaData.filter(m => m.category === 'Videos');
+            case 'galeria':
+                return mediaData.filter(m => m.category === 'Galería');
+            case 'enoturismo':
+                // Placeholder: En el futuro, podríamos tener un tipo de crónica para enoturismo
+                return enoturismoData; // Changed to enoturismoData
+            default:
+                return [];
+        }
+    }, [activeTab, activeSubTab]);
 
     const tabs: {id: TabId, label: string}[] = [
         {id: 'eventos', label: 'Eventos'},
@@ -33,19 +46,10 @@ const EventosSantuario: React.FC = () => {
         {id: 'enoturismo', label: 'Enoturismo'},
     ];
 
-    const mediaForTab = useMemo(() => {
-        const categoryMap: { [key in TabId]?: MediaCategory } = {
-            videos: 'Videos',
-            galeria: 'Galería',
-            enoturismo: 'Enoturismo',
-        };
-        const category = categoryMap[activeTab];
-        return category ? mediaData.filter(m => m.category === category) : [];
-    }, [activeTab]);
-
     return (
         <>
             <section className="flex w-full h-screen bg-black text-white pt-20 overflow-hidden">
+                {/* FASE 2: EL PERGAMINO COMO \"ARCHIVADOR TÁCTICO\" */}
                 <div className="w-3/10 h-full flex-shrink-0">
                     <PergaminoMaestro>
                         <h1 className="text-4xl font-bold text-bodega-gold mb-4 shrink-0">Crónicas de Belasco</h1>
@@ -57,8 +61,8 @@ const EventosSantuario: React.FC = () => {
                                 </button>
                             ))}
                         </div>
-                        <div className="flex-1 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden">
-                            {activeTab === 'eventos' && (
+                        <div className="flex-1 overflow-y-auto min-h-0 p-2 pr-1 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:bg-bodega-gold/20 [&::-webkit-scrollbar-track]:bg-transparent">
+                            {activeTab === 'eventos' ? (
                                 <>
                                     <div className="flex p-2 shrink-0">
                                         <button onClick={() => setActiveSubTab('proximo')} className={`flex-1 py-2 text-center ${activeSubTab === 'proximo' ? 'text-bodega-gold border-b-2 border-bodega-gold' : 'text-bodega-stone/50'}`}>
@@ -68,47 +72,44 @@ const EventosSantuario: React.FC = () => {
                                             Crónicas
                                         </button>
                                     </div>
-                                    <div className="p-2">
-                                        {activeSubTab === 'proximo' && proximosEventos.map(e => <EventCard key={e.id} evento={e} onClick={() => setSelectedEvento(e)} />)}
-                                        {activeSubTab === 'pasado' && eventosPasados.map(e => <EventCard key={e.id} evento={e} onClick={() => setSelectedEvento(e)} />)}
+                                    <div className="grid grid-cols-3 gap-2">
+                                        <AnimatePresence>
+                                            {itemsForTab.map((item, index) => (
+                                                <ChronicleCard key={item.id} item={item} onClick={() => setActiveProjection({ item, contextItems: itemsForTab, initialIndex: index })} />
+                                            ))}
+                                        </AnimatePresence>
                                     </div>
                                 </>
-                            )}
-                            {activeTab !== 'eventos' && (
-                                <div className="p-6 text-bodega-stone/70">
-                                    <p>Seleccione una categoría para ver las crónicas visuales en el Lienzo.</p>
+                            ) : (
+                                <div className="grid grid-cols-3 gap-2">
+                                    <AnimatePresence>
+                                        {itemsForTab.map((item, index) => (
+                                            <ChronicleCard key={item.id} item={item} onClick={() => setActiveProjection({ item, contextItems: itemsForTab, initialIndex: index })} />
+                                        ))}
+                                    </AnimatePresence>
                                 </div>
                             )}
                         </div>
                     </PergaminoMaestro>
                 </div>
-                <div className="w-7/10 h-full relative">
-                    <div className="absolute inset-0 z-0 bg-black" />
-                    <div className="relative z-10 w-full h-full p-8">
+
+                {/* FASE 3: EL LIENZO COMO \"PROYECTOR DE SAGAS\" */}
+                <div className="w-7/10 h-full relative bg-black/30">
+                    <div className="absolute inset-0 z-0 bg-stone-950/70" />
+                    <div className="relative z-10 w-full h-full p-8 flex items-center justify-center">
                         <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeTab}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.5 }}
-                                className="w-full h-full"
-                            >
-                                {activeTab === 'eventos' ? (
-                                    <div className="w-full h-full flex flex-col items-center justify-center text-center">
-                                        <h2 className="text-5xl font-serif text-bodega-gold/80">Más que una Bodega, un Escenario</h2>
-                                        <p className="mt-4 text-bodega-stone text-xl max-w-2xl">Selecciona una crónica en el Pergamino para revivir la historia.</p>
-                                    </div>
-                                ) : (
-                                    <MediaGrid items={mediaForTab || []} />
-                                )}
-                            </motion.div>
+                            {!activeProjection ? (
+                                <motion.div key="placeholder" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} className="text-center">
+                                    <h2 className="text-5xl font-serif text-bodega-gold/80">El Escenario</h2>
+                                    <p className="mt-4 text-bodega-stone text-xl max-w-2xl">Selecciona una crónica del archivador para proyectar su historia.</p>
+                                </motion.div>
+                            ) : (
+                                <AssetViewer key={activeProjection.item.id} projection={activeProjection} />
+                            )}
                         </AnimatePresence>
                     </div>
                 </div>
             </section>
-            
-            {/* El Holograma del Recuerdo será forjado aquí */}
         </>
     );
 };
