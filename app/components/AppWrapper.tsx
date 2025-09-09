@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { usePathname } from 'next/navigation';
 import Navbar from './ui/Navbar';
 import ModalPanel from './ui/ModalPanel';
 import HistoryContent from './sections/HistoryContent';
@@ -13,9 +12,7 @@ const RestaurantContent = () => <div>Contenido del Restaurante...</div>;
 const ReservationsContent = () => <div>Contenido de Reservas...</div>;
 
 const AppWrapper = ({ children }: { children: React.ReactNode }) => {
-  const pathname = usePathname();
-  const isHomePage = pathname === '/';
-
+  
   const [activeHologram, setActiveHologram] = useState<{ id: string; title: string } | null>(null);
   const { setActiveSantuario } = useSantuario();
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 // Importa algunos íconos para darle un toque visual
 import { Phone, Mail, MapPin } from 'lucide-react';
 
@@ -60,7 +61,9 @@ const ContactoContent: React.FC = () => {
         <div className="w-full h-full flex flex-col gap-y-4">
           {/* Imagen Superior */}
           <div className="h-1/2 w-full">
-            <img src="/images/contacto.webp" alt="Entrada de la Bodega Belasco de Baquedano" className="w-full h-full object-cover rounded-lg shadow-lg" />
+            <div className="w-full h-full relative rounded-lg shadow-lg overflow-hidden">
+              <Image src="/images/contacto.webp" alt="Entrada de la Bodega Belasco de Baquedano" fill className="object-cover" />
+            </div>
           </div>
           {/* Mapa de Google */}
           <div className="h-1/2 w-full">

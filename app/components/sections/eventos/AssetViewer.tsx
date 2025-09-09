@@ -64,11 +64,17 @@ const AssetViewer: React.FC<AssetViewerProps> = ({ projection }) => {
             transition={{ duration: 0.3 }}
             className="w-full h-full"
           >
-            {activeMedia.type === 'image' ? (
-              <Image src={activeMedia.url} alt={activeMedia.title} fill className="object-contain" />
-            ) : (
-              <video src={activeMedia.url} className="w-full h-full object-contain" controls autoPlay loop muted />
-            )}
+            {(() => {
+              // Extraemos url y title de forma segura
+              const src = 'url' in activeMedia ? activeMedia.url : '';
+              const title = 'title' in activeMedia ? activeMedia.title : 'Recurso';
+
+              if ('type' in activeMedia && activeMedia.type === 'image') {
+                return <Image src={src} alt={title} fill className="object-contain" />;
+              }
+
+              return <video src={src} className="w-full h-full object-contain" controls autoPlay loop muted />;
+            })()}
           </motion.div>
         </AnimatePresence>
         

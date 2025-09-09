@@ -1,5 +1,6 @@
 import { Vino } from '@/app/types';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -23,12 +24,13 @@ const WineCard: React.FC<{vino: Vino, onSelect: (vino: Vino) => void, currency: 
             variants={cardVariants}
             layout
         >
-            <div className="w-full aspect-[3/4] overflow-hidden p-2">
-                <img 
-                    src={vino.imagen_url} 
-                    alt={`Botella de ${vino.nombre}`} 
-                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" 
-                    onError={(e) => e.currentTarget.src = 'https://placehold.co/300x400/1a1a1a/a88b57?text=Vino'} 
+            <div className="w-full aspect-[3/4] overflow-hidden p-2 relative">
+                <Image 
+                    src={vino.imagen_url}
+                    alt={`Botella de ${vino.nombre}`}
+                    fill
+                    className="object-contain group-hover:scale-105 transition-transform duration-300"
+                    onError={() => { /* next/image no soporta onError directo para src string; dejar fallback en CSS o servidor */ }}
                 />
             </div>
             <div className="p-3 text-center mt-auto">

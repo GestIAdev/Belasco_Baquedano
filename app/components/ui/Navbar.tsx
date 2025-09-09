@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useSantuario } from '../SantuarioContext';
 import { NavLink } from '@/app/types';
 
@@ -19,7 +18,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
     { id: 'restaurante', title: 'Restaurante', type: 'santuario' },
     { id: 'aromas', title: 'Sala de Aromas', type: 'santuario' },
     { id: 'tienda', title: 'Tienda', type: 'santuario' },
-    { id: 'club-vino', title: 'Club del Vino', type: 'santuario' },
+  { id: 'club', title: 'Club del Vino', type: 'santuario' },
     { id: 'eventos', title: 'Eventos', type: 'santuario' }, // <-- EL NUEVO COMANDO
   ];
 

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Plato, Vino } from '@/app/types';
-import { Star, Info, ShieldAlert, Wine } from 'lucide-react';
+import { Star, ShieldAlert, Wine } from 'lucide-react';
 
 interface PlatoDetalleProps {
   plato: Plato;
@@ -60,7 +60,7 @@ const PlatoDetalle: React.FC<PlatoDetalleProps> = ({ plato, vinos }) => {
           <h3 className="text-3xl font-bold text-bodega-ivory mb-2">{plato.nombre}</h3>
           <p className="text-bodega-stone text-lg mb-6">{plato.descripcion}</p>
           {plato.historiaPlato && (
-            <p className="italic text-bodega-stone/80 mb-6">"{plato.historiaPlato}"</p>
+            <p className="italic text-bodega-stone/80 mb-6">&quot;{plato.historiaPlato}&quot;</p>
           )}
 
           {/* --- La Inteligencia Crítica (Datos Vitales) --- */}
@@ -100,7 +100,7 @@ const PlatoDetalle: React.FC<PlatoDetalleProps> = ({ plato, vinos }) => {
                   />
                   <div>
                     <p className="font-bold text-bodega-ivory text-lg">{recommendedWine.nombre}</p>
-                    <p className="text-sm text-bodega-stone">{recommendedWine.varietal} - {recommendedWine.añada}</p>
+                    <p className="text-sm text-bodega-stone">{recommendedWine.varietal} - {recommendedWine.anada}</p>
                   </div>
                 </Link>
               </div>

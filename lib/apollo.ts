@@ -7,7 +7,7 @@
 // TIPOS DE APOLLO - SEGURIDAD DE TIPOS PERFECTA
 // ============================================================================
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: {
@@ -25,7 +25,7 @@ export interface ApiResponse<T = any> {
 export interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   headers?: Record<string, string>;
-  body?: any;
+  body?: unknown;
   version?: 'v1' | 'v2';
   timeout?: number;
   requiresAuth?: boolean;
@@ -37,15 +37,23 @@ export interface RequestOptions {
 
 export class ApolloEngine {
   // Read base URL from NEXT_PUBLIC_API_BASE_URL (safe runtime check). Fallback to the production host.
-  private baseUrl: string = (
-    (typeof (globalThis as any)?.NEXT_PUBLIC_API_BASE_URL === 'string' && (globalThis as any).NEXT_PUBLIC_API_BASE_URL) ||
-    (typeof (globalThis as any)?.process === 'object' && (globalThis as any).process?.env?.NEXT_PUBLIC_API_BASE_URL) ||
-    'https://api.belascodebaquedano.com'
-  ); // URL Adaptada
+  private baseUrl: string = (() => {
+    // Safe runtime checks without `any`
+    try {
+      const g = globalThis as unknown as Record<string, unknown>;
+      if (typeof g?.NEXT_PUBLIC_API_BASE_URL === 'string') return g.NEXT_PUBLIC_API_BASE_URL as string;
+
+      const p = typeof process !== 'undefined' ? (process as unknown as { env?: Record<string, string | undefined> }) : undefined;
+      if (p?.env && typeof p.env.NEXT_PUBLIC_API_BASE_URL === 'string') return p.env.NEXT_PUBLIC_API_BASE_URL as string;
+    } catch {
+      // ignore
+    }
+    return 'https://api.belascodebaquedano.com';
+  })(); // URL Adaptada
   private defaultTimeout: number = 10000;
   private performanceMetrics: Map<string, number[]> = new Map();
   
-  public async request<T = any>(
+  public async request<T = unknown>(
     endpoint: string, 
     options: RequestOptions = {}
   ): Promise<ApiResponse<T>> {
@@ -104,7 +112,7 @@ export class ApolloEngine {
       if (contentType?.includes('application/json')) {
         data = await response.json();
       } else if (method !== 'DELETE') {
-        data = await response.text() as any;
+        data = await response.text() as unknown as T;
       }
 
       const result: ApiResponse<T> = {
@@ -146,11 +154,11 @@ export class ApolloEngine {
     return this.request<T>(endpoint, { ...options, method: 'GET' });
   }
 
-  public async post<T>(endpoint: string, body?: any, options?: Omit<RequestOptions, 'method' | 'body'>): Promise<ApiResponse<T>> {
+  public async post<T>(endpoint: string, body?: unknown, options?: Omit<RequestOptions, 'method' | 'body'>): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, { ...options, method: 'POST', body });
   }
 
-  public async put<T>(endpoint: string, body?: any, options?: Omit<RequestOptions, 'method' | 'body'>): Promise<ApiResponse<T>> {
+  public async put<T>(endpoint: string, body?: unknown, options?: Omit<RequestOptions, 'method' | 'body'>): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, { ...options, method: 'PUT', body });
   }
 

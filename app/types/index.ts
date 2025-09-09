@@ -68,7 +68,7 @@ export interface Plato {
 }
 
 // Nuevas interfaces para la navegación del menú
-export type SantuarioId = 'aromas' | 'tienda' | 'restaurante' | 'club';
+export type SantuarioId = 'aromas' | 'tienda' | 'restaurante' | 'club' | 'eventos';
 export type HologramId = 'history' | 'enoturismo' | 'contacto' | 'reservations';
 
 interface SantuarioLink {

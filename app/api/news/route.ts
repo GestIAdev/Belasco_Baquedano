@@ -25,17 +25,27 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(fallbackNewsData);
     }
 
-    const articles: NewsArticle[] = data.articles.map((article: any, index: number) => ({
+    type RawArticle = {
+      title?: string;
+      description?: string | null;
+      publishedAt?: string;
+      source?: { name?: string } | null;
+      url?: string;
+    };
+
+    const articles: NewsArticle[] = (data.articles as RawArticle[]).map((article, index) => ({
       id: index,
-      title: article.title,
-      summary: article.description || 'Sin resumen disponible.',
-      date: new Date(article.publishedAt).toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' }),
-      source: article.source.name,
-      url: article.url,
+      title: article.title ?? 'Sin título',
+      summary: article.description ?? 'Sin resumen disponible.',
+      date: article.publishedAt
+        ? new Date(article.publishedAt).toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric' })
+        : 'Fecha desconocida',
+      source: article.source?.name ?? 'Desconocido',
+      url: article.url ?? '#',
     }));
 
     return NextResponse.json(articles);
-  } catch (error) {
+  } catch {
     // Nuestra bóveda es la última línea de defensa.
     return NextResponse.json(fallbackNewsData);
   }

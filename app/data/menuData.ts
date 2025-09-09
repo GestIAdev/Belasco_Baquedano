@@ -1,4 +1,4 @@
-import { Plato, MenuChapter } from '@/app/types';
+import { MenuChapter } from '@/app/types';
 
 export const menuData: MenuChapter[] = [
   {

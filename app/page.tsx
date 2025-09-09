@@ -60,9 +60,9 @@ export default function Home() {
           >
             <RestauranteSantuario />
           </motion.div>  
-        ) : activeSantuario === 'club-vino' ? ( // <-- CONDICIÓN AÑADIDA
+    ) : activeSantuario === 'club' ? (
           <motion.div
-            key="santuario-club-vino"
+      key="santuario-club"
             initial="initial"
             animate="in"
             exit="out"
