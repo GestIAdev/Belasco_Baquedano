@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Evento, MediaItem } from '@/app/types';
+import { Evento, MediaItem, MediaCategory } from '@/app/types';
 import { eventosData } from '@/app/data/eventosData';
 import { mediaData } from '@/app/data/mediaData';
 import { enoturismoData } from '@/app/data/enoturismoData'; // Added import
@@ -12,12 +12,6 @@ import AssetViewer from '../sections/eventos/AssetViewer';
 
 // Definimos un tipo para el activo que puede ser mostrado en el Lienzo
 type ActiveAsset = Evento | MediaItem;
-
-type ActiveProjection = {
-    item: ActiveAsset;
-    contextItems: ActiveAsset[];
-    initialIndex: number;
-};
 
 type TabId = 'eventos' | 'videos' | 'galeria' | 'enoturismo';
 
@@ -54,7 +48,7 @@ const EventosSantuario: React.FC = () => {
 
     return (
         <>
-            <section className="flex w-full h-full bg-black text-white pt-20 overflow-hidden">
+            <section className="flex w-full h-screen bg-black text-white pt-20 overflow-hidden">
                 {/* FASE 2: EL PERGAMINO COMO \"ARCHIVADOR TÁCTICO\" */}
                 <div className="w-3/10 h-full flex-shrink-0">
                     <PergaminoMaestro>

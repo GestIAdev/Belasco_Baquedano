@@ -8,7 +8,8 @@ import DishCard from '@/app/components/sections/restaurante/DishCard';
 import PlatoDetalle from '@/app/components/sections/restaurante/PlatoDetalle';
 import MenuCard from '@/app/components/sections/restaurante/MenuCard';
 import MenuImageViewer from '@/app/components/sections/restaurante/MenuImageViewer';
-// motion removed - not used in this component
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Definimos los capítulos de nuestro teatro
 type CapituloId = MenuChapter['id'];
@@ -97,12 +98,12 @@ const RestauranteSantuario = () => {
                 </button>
               )}
 
-              {contentToDisplay.map((item: MenuSubcategory | Plato | MenuChapter) => {
-                if ('platos' in item && (item as MenuSubcategory).platos) {
+              {contentToDisplay.map((item: any) => {
+                if ('platos' in item && item.platos) {
                   return (
                     <div 
-                      key={(item as MenuSubcategory).id} 
-                      onClick={() => setSubcategoriaActiva((item as MenuSubcategory).id)}
+                      key={item.id} 
+                      onClick={() => setSubcategoriaActiva(item.id)}
                       className="p-4 border-b border-bodega-gold/20 hover:bg-bodega-ivory/10 transition-colors duration-200 cursor-pointer"
                     >
                       <h4 className="font-bold text-bodega-ivory text-xl">{item.nombre}</h4>
@@ -112,16 +113,16 @@ const RestauranteSantuario = () => {
                   if (capituloActivo === 'menus') {
                     return (
                       <MenuCard
-                        key={(item as Plato).id}
-                        menu={item as Plato}
+                        key={item.id}
+                        menu={item}
                         onSelect={setMenuSeleccionado}
                       />
                     );
                   } else {
                     return (
                       <DishCard 
-                        key={(item as Plato).id} 
-                        plato={item as Plato} 
+                        key={item.id} 
+                        plato={item} 
                         onSelect={setPlatoSeleccionado} 
                       />
                     );

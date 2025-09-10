@@ -20,7 +20,7 @@ const AromasSantuario: React.FC = () => {
 
   return (
     <>
-  <section className="flex w-full h-full bg-black text-white pt-20 overflow-hidden">
+      <section className="flex w-full h-screen bg-black text-white pt-20 overflow-hidden">
         {/* === El Pergamino (40%) - AHORA CON ALMA === */}
         <div className="w-2/6 h-full flex-shrink-0">
           <PergaminoMaestro>
@@ -31,10 +31,10 @@ const AromasSantuario: React.FC = () => {
                 <div className="space-y-4 text-bodega-stone/80 leading-relaxed">
                   <h2 className="text-2xl font-bold text-bodega-gold">Un Viaje al Corazón del Vino</h2>
                   <p>
-                    Nuestra Sala de Aromas no es un museo; es un <strong>oráculo</strong>. Un santuario diseñado para decodificar el lenguaje secreto que cada botella de Belasco susurra. Aquí, hemos aislado y encapsulado las 46 esencias que componen el alma de nuestros vinos, desde la violeta que florece en la altura de nuestros Malbecs hasta el cuero noble que solo el tiempo puede forjar.
+                    Nuestra Sala de Aromas no es un museo; es un **oráculo**. Un santuario diseñado para decodificar el lenguaje secreto que cada botella de Belasco susurra. Aquí, hemos aislado y encapsulado las 46 esencias que componen el alma de nuestros vinos, desde la violeta que florece en la altura de nuestros Malbecs hasta el cuero noble que solo el tiempo puede forjar.
                   </p>
                   <p>
-                    Es un campo de entrenamiento para los sentidos, un mapa líquido que te permite viajar a través de nuestro terroir sin moverte de la sala. Al aprender a identificar estos &quot;hilos de Ariadna&quot;, no solo degustas el vino: lo <strong>comprendes</strong>. Te conviertes en un iniciado, un guardián de su historia. 
+                    Es un campo de entrenamiento para los sentidos, un mapa líquido que te permite viajar a través de nuestro terroir sin moverte de la sala. Al aprender a identificar estos "hilos de Ariadna", no solo degustas el vino: lo **comprendes**. Te conviertes en un iniciado, un guardián de su historia. 
                   </p>
 
                   <div className="border-t border-bodega-gold/10 my-6 pt-6">

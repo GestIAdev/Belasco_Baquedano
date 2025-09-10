@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useSantuario } from '../SantuarioContext';
-import { NavLink } from '@/app/types';
+import { NavLink, SantuarioId } from '@/app/types';
+import MobileMenu from './MobileMenu';
 
 interface NavbarProps {
   onOpenPanel: (hologram: { id: string; title: string }) => void;
@@ -11,6 +12,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
   const { activeSantuario, setActiveSantuario } = useSantuario();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks: NavLink[] = [
     { id: 'history', title: 'Nuestra Historia', type: 'hologram' },
@@ -38,8 +40,8 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
 
         </button>
 
-        {/* === ZONA CENTRAL: NAVEGACIÓN === */}
-        <div className="flex items-center space-x-8">
+  {/* === ZONA CENTRAL: NAVEGACIÓN === */}
+  <div className="hidden lg:flex items-center space-x-8">
           {navLinks.map((link) => (
             <button
               key={link.id}
@@ -62,7 +64,14 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
           ))}
         </div>
 
-        {/* === ZONA DERECHA: BLOQUE DE ACCIÓN === */}
+        {/* Mobile hamburger trigger */}
+        <div className="lg:hidden flex items-center">
+          <button onClick={() => setIsMobileMenuOpen(true)} aria-label="Abrir menú" className="p-2">
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
+        </div>
+
+  {/* === ZONA DERECHA: BLOQUE DE ACCIÓN === */}
         <div className="flex items-center gap-4">
           <button 
             onClick={() => onOpenPanel({ id: 'contacto', title: 'Contacto' })} 
@@ -78,6 +87,10 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenPanel }) => {
           </button>
         </div>
       </nav>
+  <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} navLinks={navLinks} onSelect={(link) => {
+  if (link.type === 'santuario') setActiveSantuario(link.id as SantuarioId);
+  else onOpenPanel({ id: link.id, title: link.title });
+      }} />
     </header>
   );
 };

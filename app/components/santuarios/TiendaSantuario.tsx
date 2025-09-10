@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Vino, TipoVino, MaridajeIdeal } from '@/app/types';
 import { vinosData } from '@/app/data/vinosData';
-import { useWineFilter } from '@/app/hooks/useWineFilter';
+import { useWineFilter, Currency } from '@/app/hooks/useWineFilter';
 import PergaminoMaestro from '@/app/components/ui/PergaminoMaestro';
 import WineCard from '@/app/components/sections/tienda/WineCard';
 import WineDetail from '@/app/components/sections/tienda/WineDetail';
