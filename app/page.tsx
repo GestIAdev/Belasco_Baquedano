@@ -25,7 +25,7 @@ export default function Home() {
   };
 
   return (
-    <main>
+  <div className="h-full min-h-0 flex-1">
       <AnimatePresence mode="wait">
         {activeSantuario === 'aromas' ? (
           <motion.div
@@ -35,6 +35,7 @@ export default function Home() {
             exit="out"
             variants={pageVariants}
             transition={pageTransition}
+            className="flex-1 min-h-0"
           >
             <AromasSantuario />
           </motion.div>
@@ -46,6 +47,7 @@ export default function Home() {
             exit="out"
             variants={pageVariants}
             transition={pageTransition}
+            className="flex-1 min-h-0"
           >
             <TiendaSantuario />
           </motion.div>
@@ -57,6 +59,7 @@ export default function Home() {
             exit="out" 
             variants={pageVariants} 
             transition={pageTransition}
+            className="flex-1 min-h-0"
           >
             <RestauranteSantuario />
           </motion.div>  
@@ -68,6 +71,7 @@ export default function Home() {
             exit="out"
             variants={pageVariants}
             transition={pageTransition}
+            className="flex-1 min-h-0"
           >
             <ClubVinoSantuario />
           </motion.div>
@@ -80,6 +84,7 @@ export default function Home() {
             exit="out"
             variants={pageVariants}
             transition={pageTransition}
+            className="flex-1 min-h-0"
           >
             <EventosSantuario />
           </motion.div>
@@ -91,11 +96,12 @@ export default function Home() {
             exit="out"
             variants={pageVariants}
             transition={pageTransition}
+            className="flex-1 min-h-0"
           >
             <HeroSection />
           </motion.div>
         )}
       </AnimatePresence>
-    </main>
+    </div>
   );
 }

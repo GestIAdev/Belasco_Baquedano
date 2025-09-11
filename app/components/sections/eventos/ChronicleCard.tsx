@@ -32,10 +32,10 @@ const ChronicleCard: React.FC<ChronicleCardProps> = ({ item, onClick }) => {
       className="relative rounded-md overflow-hidden cursor-pointer group shadow-lg bg-stone-900"
     >
       <div className="relative" style={{ paddingBottom: '100%' }}> {/* Custom aspect ratio container */}
-        <Image src={imageUrl} alt={item.title} fill className="transition-transform duration-300 group-hover:scale-110 object-cover absolute inset-0" />
+  <Image src={imageUrl} alt={item.title} fill className="transition-transform duration-300 group-hover:scale-110 object-cover absolute inset-0" unoptimized />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-      <h3 className="absolute bottom-0 left-0 right-0 p-2 text-white font-bold text-sm bg-gradient-to-t from-black/90 to-transparent">
+      <h3 className="absolute bottom-0 left-0 right-0 p-2 lg:p-3 text-white font-bold text-xs lg:text-sm bg-gradient-to-t from-black/90 to-transparent">
         {item.title}
       </h3>
     </motion.div>

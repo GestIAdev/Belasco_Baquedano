@@ -2,6 +2,7 @@ import { Vino } from '@/app/types';
 import { aromasData } from '@/app/data/aromasData';
 import { motion } from 'framer-motion';
 import React from 'react';
+import Image from 'next/image';
 
 // ... (MicroAroma sin cambios) ...
 const MicroAroma: React.FC<{ aromaId: number | string }> = ({ aromaId }) => {
@@ -22,7 +23,11 @@ const WineDetail: React.FC<{vino: Vino, onClose: () => void, currency: 'usd' | '
             <div className="w-full h-1/2 flex items-center justify-center pt-8">
                 <motion.div className="relative h-full w-full flex items-center justify-center" whileHover={{ scale: 1.02 }} transition={{ type: 'spring', stiffness: 400, damping: 20 }}>
                     <div className="absolute w-[70%] h-full rounded-full border-2 border-bodega-gold/10 shadow-lg shadow-black/30" />
-                    <motion.img src={vino.imagen_url} alt={`Botella de ${vino.nombre}`} className="relative max-h-full object-contain z-10" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 0.5 }} onError={(e) => e.currentTarget.src = 'https://placehold.co/400x600/1a1a1a/a88b57?text=Vino'} />
+                    <div className="relative z-10 flex items-center justify-center w-full h-full">
+                        <div className="relative w-1/2 max-w-[340px] h-[85%]">
+                            <Image src={vino.imagen_url} alt={`Botella de ${vino.nombre}`} fill className="object-contain" unoptimized />
+                        </div>
+                    </div>
                 </motion.div>
             </div>
             <div className="w-full flex-1 flex flex-col p-4 overflow-hidden min-h-0">

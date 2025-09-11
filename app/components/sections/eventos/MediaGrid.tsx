@@ -12,7 +12,7 @@ const MediaCard: React.FC<{ item: MediaItem }> = ({ item }) => {
       whileHover={{ y: -5 }}
     >
       {item.type === 'image' ? (
-        <Image src={item.url} alt={item.title} layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" />
+        <Image src={item.url} alt={item.title} fill className="transition-transform duration-300 group-hover:scale-105" unoptimized />
       ) : (
         <video src={item.url} className="w-full h-full object-cover" autoPlay loop muted playsInline />
       )}

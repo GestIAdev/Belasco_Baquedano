@@ -12,7 +12,7 @@ const bubbleVariants = {
 
 const AromaBubble: React.FC<{ aroma: Aroma; onClick: () => void }> = ({ aroma, onClick }) => (
   <motion.div
-    className="relative aspect-square rounded-full cursor-pointer group overflow-hidden shadow-lg shadow-black/50"
+    className="relative aspect-square rounded-full cursor-pointer group overflow-hidden shadow-lg shadow-black/50 w-16 h-16 md:w-24 md:h-24 lg:w-54 lg:h-54"
     onClick={onClick}
     variants={bubbleVariants}
     initial="hidden"
@@ -34,8 +34,9 @@ const AromaBubble: React.FC<{ aroma: Aroma; onClick: () => void }> = ({ aroma, o
     <Image
       src={aroma.imageUrl}
       alt={aroma.nombre}
-      layout="fill"
+      fill
       className="object-cover transition-transform duration-300 group-hover:scale-110"
+      unoptimized
     />
     {/* EL VELO HA SIDO PURGADO. En su lugar, un degradado sutil SÓLO en hover */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

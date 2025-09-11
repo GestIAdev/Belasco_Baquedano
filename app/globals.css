@@ -22,6 +22,7 @@
 
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-geist-mono);
+  --font-serif-elegant: var(--font-dancing-script);
 
   /* Registro de la animación 'breathe' para que la clase 'animate-breathe' funcione */
   --animate-breathe: breathe 6s ease-in-out infinite;

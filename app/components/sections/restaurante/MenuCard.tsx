@@ -7,13 +7,14 @@ import { Plato } from '@/app/types';
 interface MenuCardProps {
   menu: Plato;
   onSelect: (menu: Plato) => void;
+  onMobileView?: (menu: Plato) => void;
 }
 
-const MenuCard: React.FC<MenuCardProps> = ({ menu, onSelect }) => {
+const MenuCard: React.FC<MenuCardProps> = ({ menu, onSelect, onMobileView }) => {
   return (
     <div
-      onClick={() => onSelect(menu)}
-      className="flex items-center gap-4 p-4 border-b border-bodega-gold/20 hover:bg-bodega-ivory/10 transition-colors duration-200 cursor-pointer"
+      onClick={(e: React.MouseEvent) => { e.stopPropagation(); if (onMobileView) { onMobileView(menu); } else { onSelect(menu); } }}
+      className="flex items-center gap-4 p-4 border-b border-bodega-gold/20 hover:bg-bodega-ivory/10 transition-transform duration-150 transform active:scale-95 cursor-pointer box-border min-h-0 pointer-events-auto"
     >
       {/* Miniatura del Cartel del Menú */}
       <div className="relative w-24 h-24 rounded-md overflow-hidden shrink-0 border border-bodega-gold/30">
@@ -22,6 +23,7 @@ const MenuCard: React.FC<MenuCardProps> = ({ menu, onSelect }) => {
           alt={`Miniatura de ${menu.nombre}`}
           fill
           className="object-cover"
+          unoptimized
         />
       </div>
 

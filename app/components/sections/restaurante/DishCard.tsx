@@ -6,13 +6,14 @@ import { Plato } from '@/app/types';
 interface DishCardProps {
   plato: Plato;
   onSelect: (plato: Plato) => void;
+  onMobileView?: (plato: Plato) => void;
 }
 
-const DishCard: React.FC<DishCardProps> = ({ plato, onSelect }) => {
+const DishCard: React.FC<DishCardProps> = ({ plato, onSelect, onMobileView }) => {
   return (
     <div 
-      onClick={() => onSelect(plato)}
-      className="relative flex justify-between items-center p-4 border-b border-bodega-gold/20 hover:bg-bodega-ivory/10 transition-colors duration-200 cursor-pointer"
+      onClick={(e: React.MouseEvent) => { e.stopPropagation(); if (onMobileView) { onMobileView(plato); } else { onSelect(plato); } }}
+      className="relative flex justify-between items-center p-4 border-b border-bodega-gold/20 hover:bg-bodega-ivory/10 transition-transform duration-150 transform active:scale-95 cursor-pointer box-border min-h-0 pointer-events-auto"
     >
       {/* --- Información del Plato --- */}
       <div>

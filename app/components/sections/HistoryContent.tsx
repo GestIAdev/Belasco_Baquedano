@@ -39,7 +39,7 @@ const HistoryContent: React.FC = () => {
         className="w-3/5 p-4 overflow-y-auto [mask-image:linear-gradient(to_bottom,black_90%,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {/* Título Principal */}
-        <h2 className="font-serif text-3xl font-bold text-bodega-maroon mb-4 text-center">
+        <h2 className="font-serif text-3xl font-bold text-bodega-dark mb-4 text-center">
           El Alma de Navarra en el Corazón de Mendoza
         </h2>
 

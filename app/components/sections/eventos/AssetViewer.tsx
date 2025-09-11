@@ -51,10 +51,10 @@ const AssetViewer: React.FC<AssetViewerProps> = ({ projection }) => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      className="w-full h-full flex flex-row bg-black/30 border border-bodega-gold/10 rounded-lg overflow-hidden shadow-2xl shadow-black/50"
+      className="w-full h-full flex flex-col lg:flex-row bg-black/30 border border-bodega-gold/10 rounded-lg overflow-hidden shadow-2xl shadow-black/50 p-6 lg:p-8"
     >
-      {/* Directiva 3.2: El Escenario Principal (75%) */}
-      <div className="w-3/4 h-full bg-black relative flex items-center justify-center">
+      {/* Directiva 3.2: El Escenario Principal (mobile-first: h-3/5) */}
+  <div className="w-full h-3/5 lg:w-3/4 lg:h-full bg-black relative flex items-center justify-center min-h-0 overflow-hidden box-border">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeMedia.id}
@@ -70,10 +70,10 @@ const AssetViewer: React.FC<AssetViewerProps> = ({ projection }) => {
               const title = 'title' in activeMedia ? activeMedia.title : 'Recurso';
 
               if ('type' in activeMedia && activeMedia.type === 'image') {
-                return <Image src={src} alt={title} fill className="object-contain" />;
+                return <Image src={src} alt={title} fill className="object-contain max-h-full block" unoptimized />;
               }
 
-              return <video src={src} className="w-full h-full object-contain" controls autoPlay loop muted />;
+              return <video src={src} className="w-full h-full object-cover max-h-full block" controls autoPlay loop muted />;
             })()}
           </motion.div>
         </AnimatePresence>
@@ -90,13 +90,13 @@ const AssetViewer: React.FC<AssetViewerProps> = ({ projection }) => {
         )}
       </div>
 
-      {/* Directiva 3.2: El Códice Narrativo (25%) */}
-      <div className="w-1/4 h-full flex flex-col p-6 bg-stone-950/60 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:bg-bodega-gold/20">
-        <h2 className="text-2xl font-bold text-bodega-gold font-serif mb-3">{item.title}</h2>
+      {/* Directiva 3.2: El Códice Narrativo (mobile-first: h-2/5) */}
+  <div className="w-full h-2/5 lg:w-1/4 lg:h-full flex flex-col p-4 lg:p-6 bg-stone-950/60 overflow-hidden overflow-y-auto min-h-0 box-border [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:bg-bodega-gold/20">
+        <h2 className="text-xl lg:text-2xl font-bold text-bodega-gold font-serif mb-2 lg:mb-3">{item.title}</h2>
         {isChronicle(item) && (
-            <p className="text-sm text-bodega-gold/70 mb-4">{item.date}</p>
+            <p className="text-xs lg:text-sm text-bodega-gold/70 mb-3">{item.date}</p>
         )}
-        <div className="prose prose-invert prose-sm prose-p:text-bodega-stone/80 prose-p:leading-relaxed">
+        <div className="prose prose-invert prose-sm lg:prose-base prose-p:text-bodega-stone/80 prose-p:leading-relaxed">
           <p>{description}</p>
         </div>
       </div>

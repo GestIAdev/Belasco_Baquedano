@@ -1,3 +1,4 @@
+// app/components/AppWrapper.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -6,57 +7,48 @@ import ModalPanel from './ui/ModalPanel';
 import HistoryContent from './sections/HistoryContent';
 import EnoturismoContent from './sections/EnoturismoContent';
 import ContactoContent from './sections/ContactoContent';
-import { useSantuario } from './SantuarioContext';
-
-const RestaurantContent = () => <div>Contenido del Restaurante...</div>;
-const ReservationsContent = () => <div>Contenido de Reservas...</div>;
+import { useSantuario, SantuarioId } from './SantuarioContext';
 
 const AppWrapper = ({ children }: { children: React.ReactNode }) => {
-  
   const [activeHologram, setActiveHologram] = useState<{ id: string; title: string } | null>(null);
-  const { setActiveSantuario } = useSantuario();
+  const { setActiveSantuario, inModal } = useSantuario();
 
-  const openHologram = (hologram: { id: string; title: string }) => {
-    setActiveHologram(hologram);
-  };
+  const handleNavClick = (link: { id: string; title: string; type: string }) => {
+    // If a modal/pergamino is open, avoid changing santuario via global nav clicks
+    if (inModal && link.type === 'santuario') {
+      // ignore nav that would change santuario while modal is active
+      return;
+    }
 
-  const closeHologram = () => {
-    setActiveHologram(null);
-  };
-
-  const handleNavClick = (hologram: { id: string; title: string }) => {
-    if (hologram.id === 'aromas') {
-      setActiveSantuario('aromas');
+    if (link.type === 'santuario') {
+      // empty id clears activeSantuario
+      if (!link.id) {
+        setActiveSantuario(null);
+      } else {
+        setActiveSantuario(link.id as SantuarioId);
+      }
     } else {
-      openHologram(hologram);
+      setActiveHologram({ id: link.id, title: link.title });
     }
   };
 
   return (
-    <div className="bg-black text-white">
-      {/* FASE 1: Construir el Bastión del Centinela */}
-      {/* Temporarily render Navbar always for debugging */} 
-      <header className="relative z-50">
-        <Navbar onOpenPanel={handleNavClick} />
-      </header>
-
-      {/* FASE 2: El Contenido Fluye Debajo */}
-      {/* El pt-20 en cada Santuario sigue siendo la clave para dejar el espacio físico. */}
-      <main>
+    <div className="h-screen grid grid-rows-[auto_1fr] bg-black text-white">
+  <Navbar onNavClick={handleNavClick} />
+      
+  <main className="overflow-hidden pt-20 min-h-0 flex flex-col">
         {children}
       </main>
 
       {activeHologram && (
         <ModalPanel
           isOpen={!!activeHologram}
-          onClose={closeHologram}
+          onClose={() => setActiveHologram(null)}
           title={activeHologram.title}
         >
           {activeHologram.id === 'history' && <HistoryContent />}
           {activeHologram.id === 'enoturismo' && <EnoturismoContent />}
           {activeHologram.id === 'contacto' && <ContactoContent />}
-          {activeHologram.id === 'restaurant' && <RestaurantContent />}
-          {activeHologram.id === 'reservations' && <ReservationsContent />}
         </ModalPanel>
       )}
     </div>

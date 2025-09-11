@@ -19,19 +19,20 @@ const PunkVideoPlayer: React.FC<{ src: string }> = ({ src }) => {
   };
 
   return (
-    <div className="relative w-full h-full group bg-black">
+    <div className="relative w-full h-full group bg-black min-h-0 overflow-hidden box-border max-h-full">
       <video
         ref={videoRef}
         src={src}
-        className="w-full h-full object-contain"
+        className="w-full h-full object-cover max-h-full"
         loop
         playsInline
       />
       <div 
-        className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+        className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer pointer-events-auto"
         onClick={togglePlay}
+        aria-hidden={false}
       >
-        <div className="w-20 h-20 rounded-full bg-bodega-gold/70 flex items-center justify-center backdrop-blur-sm">
+        <div className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-bodega-gold/70 flex items-center justify-center backdrop-blur-sm">
           {isPlaying ? (
             <svg className="w-10 h-10 text-bodega-dark" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v4a1 1 0 11-2 0V8z" clipRule="evenodd"></path></svg>
           ) : (

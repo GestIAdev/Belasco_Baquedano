@@ -17,7 +17,7 @@ const VinoLink: React.FC<{ vino: Vino }> = ({ vino }) => {
       className="flex items-center gap-x-3 p-2 rounded-lg hover:bg-bodega-gold/10 transition-colors w-full text-left"
     >
       <div className="w-10 h-16 relative shrink-0">
-        <Image src={vino.imagen_url} alt={vino.nombre} layout="fill" className="object-contain" />
+        <Image src={vino.imagen_url} alt={vino.nombre} fill className="object-contain" unoptimized />
       </div>
       <div>
         <p className="font-bold text-bodega-stone">{vino.nombre}</p>
@@ -43,19 +43,19 @@ const AromaDetailModal: React.FC<{ aroma: Aroma | null; isOpen: boolean; onClose
         >
           <div className="absolute inset-0" onClick={onClose} />
           <motion.div
-            className="relative w-full max-w-4xl h-[80vh] bg-bodega-dark border border-bodega-gold/20 rounded-2xl flex overflow-hidden"
+            className="relative w-full max-w-4xl h-auto max-h-[90vh] lg:h-[80vh] bg-bodega-dark border border-bodega-gold/20 rounded-2xl flex flex-col lg:flex-row overflow-hidden"
             initial={{ scale: 0.9, y: 50 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.9, y: 50 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           >
-            <div className="w-1/2 relative">
-              <Image src={aroma.imageUrl} alt={aroma.nombre} layout="fill" className="object-cover" />
+            <div className="w-full lg:w-1/2 relative h-48 lg:h-auto">
+              <Image src={aroma.imageUrl} alt={aroma.nombre} fill className="object-cover" unoptimized />
               <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent" />
             </div>
-            <div className="w-1/2 flex flex-col p-8 overflow-y-auto [&::-webkit-scrollbar]:hidden">
-              <h2 className="font-serif text-4xl text-bodega-gold mb-4">{aroma.nombre}</h2>
-              <p className="text-bodega-stone/80 leading-relaxed">{aroma.descripcion}</p>
+            <div className="w-full lg:w-1/2 flex flex-col p-6 lg:p-8 overflow-y-auto [&::-webkit-scrollbar]:hidden">
+              <h2 className="font-serif text-2xl lg:text-4xl text-bodega-gold mb-4">{aroma.nombre}</h2>
+              <p className="text-bodega-stone/80 leading-relaxed text-sm lg:text-base">{aroma.descripcion}</p>
 
               <div className="border-t border-bodega-gold/10 my-6" />
 

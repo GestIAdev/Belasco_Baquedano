@@ -62,7 +62,7 @@ const ContactoContent: React.FC = () => {
           {/* Imagen Superior */}
           <div className="h-1/2 w-full">
             <div className="w-full h-full relative rounded-lg shadow-lg overflow-hidden">
-              <Image src="/images/contacto.webp" alt="Entrada de la Bodega Belasco de Baquedano" fill className="object-cover" />
+              <Image src="/images/contacto.webp" alt="Entrada de la Bodega Belasco de Baquedano" fill className="object-cover" unoptimized />
             </div>
           </div>
           {/* Mapa de Google */}
